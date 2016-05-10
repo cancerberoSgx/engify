@@ -8,7 +8,7 @@ function service (request, response)
 
 	response.write('hello world model: '+model.greetings())
 }
-GLOBAL.service = service;
+global.service = service;
 
 
 console.log('model.greetings()', new FooModel().greetings());

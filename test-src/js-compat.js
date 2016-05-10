@@ -1,3 +1,4 @@
+//TODO pack this better. 
 // var _ = require('underscore')
 var tool = {
 	isJJS: function()
@@ -16,6 +17,10 @@ var tool = {
 	{
 		return typeof(java)!=='undefined';
 	}
+,	isBrowser: function()
+	{
+		return false//typeof(window)!=='undefined' && typeof(window.document)!=='undefined' && typeof(window.document.createElement)!=='undefined'; 
+	}
 ,	isV7: function()
 	{
 		return typeof(print)!=='undefined';
@@ -26,6 +31,10 @@ var tool = {
 		if(tool.isns())
 		{
 			env = 'ns';
+		}
+		else if(tool.isBrowser())
+		{			
+			env = 'browser';
 		}
 		else if(tool.isV7())
 		{			
@@ -47,6 +56,7 @@ var tool = {
 	}
 }
 
+// _old_console = typeof(console)==='undefined'
 console = {
 	log: function()
 	{
@@ -68,11 +78,17 @@ console = {
 		{
 			console.log.apply(console, arguments);
 		}
+		else if(env==='browser')
+		{
+			console.log.apply(console, arguments);
+		}
 		else if(env==='v7')
 		{
 			print.apply(this, arguments)
 		}
 	}
 }
+
+// console.log('sgu', typeof(window)!=='undefined' && typeof(window.document)!=='undefined' && typeof(window.document.createElement)!=='undefined')
 
 module.exports = tool;

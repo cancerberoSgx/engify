@@ -1,8 +1,7 @@
 //this file is included into distribution and defines the global object
 
-if(typeof(GLOBAL)==='undefined')
+if(typeof(global)==='undefined')
 {
-	this.GLOBAL = this; 
-	GLOBAL = this;
+	this.global = this; 
+	global = this;
 }
-
