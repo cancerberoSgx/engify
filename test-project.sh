@@ -1,6 +1,10 @@
+
+INPUT=$1
+
+rm -rf static
 mkdir static
 
-node src/index.js --input test-src/index.js > static/output.js
+node src/index.js --input ${INPUT} > static/output.js
 
 echo ""; echo "node: "
 node static/output.js

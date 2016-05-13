@@ -73,10 +73,14 @@ for running in netsuite, just rename the file to .ss and run it as SuiteScript s
 
 #release 
 
+On any commit we should make the following commands work: 
     git clone https://github.com/cancerberoSgx/engify.git
     cd engify
     npm install
 
+    cd test-src
+    npm install
+    cd ..    
     sh test-src/build.sh
 
 #TODO /Misc
