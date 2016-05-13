@@ -1,5 +1,5 @@
 {
-  "name": "test project using ",
+  "name": "engify-test-project-1",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "momentjs": "^1.1.6",
     "underscore": "^1.8.3"
   }
 }

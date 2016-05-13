@@ -52,7 +52,7 @@ Right now all the experiment consists in this command to compile the example pro
 #Objectives
 
  * we base our apis in nodejs - commons-js for file dependencies and use browserify to support this.
- * GLOBAL object supported so we can register global functions for registering as netsuite's scripts.
+ * global object supported so we can register global functions for registering as netsuite's scripts.
 
 #APIs implemented
 
@@ -93,9 +93,4 @@ for running in netsuite, just rename the file to .ss and run it as SuiteScript s
  * browserify experiment: load libraries in ssp-libraries files and be able to use require() directly in .ss / scripts.  
 
 
-#FIXES
 
-0.0.2: 
- * initial contribution
- * issue fix: browserify working folder correctly, currently  underscore need to be a dependency in parent project. 
- * issue node deprecated GLOBAL nasty stderr message
