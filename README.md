@@ -71,6 +71,13 @@ As in browserify, we need to implement some apis outside the JavaScript language
 for running in netsuite, just rename the file to .ss and run it as SuiteScript service. It works because test-src/index.js declares a global working service function. 
 
 
+#release 
+
+    git clone https://github.com/cancerberoSgx/engify.git
+    cd engify
+    npm install
+
+    sh test-src/build.sh
 
 #TODO /Misc
 
