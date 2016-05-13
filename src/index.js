@@ -3,7 +3,6 @@ Usage:
 
 	node src/index.js --input test-src/index.js > my/output.js
 
-node build --input src/index.js > output.ss
 */
 
 var shell = require('shelljs')
