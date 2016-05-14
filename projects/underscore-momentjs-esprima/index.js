@@ -1,5 +1,6 @@
 var _ = require('underscore')
 ,	moment = require('momentjs')
+,	esprima = require('esprima')
 
 require('../../test-src/js-compat')
 
@@ -11,4 +12,6 @@ _.each(formats, function(format)
 	output += moment().format(format) + ', ';
 }); 
 
+var syntax = esprima.parse('var answer = 42');
+output += ', '+JSON.stringify(syntax);
 console.log(output)

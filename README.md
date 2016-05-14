@@ -6,10 +6,10 @@ This projects is just some basic ideas and experiments to see if we can write js
  * browser
  * [rhino](https://developer.mozilla.org/es/docs/Rhino)
  * [Nashorn](https://en.wikipedia.org/wiki/Nashorn_(JavaScript_engine))
+ * spidermonkey (https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey)
+ * JavaScriptCore (webkit.org - safary)
  * [v7](https://github.com/cesanta/v7) 
- * netsuite ssp - suitescript
 
-Initially born as a proof of concept to see if netsuite scripts could be written in commons-js a la node. Also a personal research on different javascript implementations. 
 
 This project is inspired and based on [browserify](http://browserify.org/) but try to extend the browser-node to other js engines like rhino, nashhorn, etc.
 
@@ -51,8 +51,9 @@ Right now all the experiment consists in this command to compile the example pro
 
 #Objectives
 
- * we base our apis in nodejs - commons-js for file dependencies and use browserify to support this.
- * global object supported so we can register global functions for registering as netsuite's scripts.
+ * Be able to write code using npm and run it in all javascript implementations. 
+ * support some very basic apis in all the impls, like console.log and the global object.
+ * try to run js libraries that currently support browser and node like underscore, momentjs, esprima, lodash, acorn, etc in the rest of the implementations. 
 
 #APIs implemented
 
@@ -65,11 +66,8 @@ As in browserify, we need to implement some apis outside the JavaScript language
 #libraries supported/tested
 
  * underscore
-
-
-#Netsuite
-for running in netsuite, just rename the file to .ss and run it as SuiteScript service. It works because test-src/index.js declares a global working service function. 
-
+ * momentjs
+ * esprima
 
 #Release Test
 
@@ -89,22 +87,12 @@ This last command will build givven test-src/index.js into static/ folder and th
 #TODO /Misc
 
  * support browser!
- * put global and consol.log in a commons-js module
+ * try windows native javascript engines (http://superuser.com/questions/488763/how-to-run-js-file-from-a-command-line-on-windows)
+ * put global and console.log in a commons-js module
  * bin program: engify my/project/services/service1.js > output.js
  * Should be a browserify transformation ? currently not just uses browserify js api. write it anyway : (from https://github.com/substack/browserify-handbook)
-                Transforms implement a simple streaming interface. Here is a transform that replaces $CWD with the process.cwd():
-
-                var through = require('through2');
-
-                module.exports = function (file) {
-                    return through(function (buf, enc, next) {
-                        this.push(buf.toString('utf8').replace(/\$CWD/g, process.cwd()));
-                        next();
-                    });
-                };
-
  * put test-src as a separate project
- * browserify experiment: load libraries in ssp-libraries files and be able to use require() directly in .ss / scripts.  
+ * browserify experiment: load libraries in ssp-libraries files and be able to use require() directly in .ss / scripts.  probably i need to use a browserify flag.
 
 
 

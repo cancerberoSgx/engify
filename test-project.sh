@@ -12,8 +12,11 @@ node static/output.js
 echo ""; echo "rhino: "
 rhino static/output.js 
 
-echo ""; echo "jjs: "
+echo ""; echo "nashorn: "
 jjs static/output.js 
+
+echo ""; echo "spidermonkey: "
+js static/output.js 
 
 echo ""; echo "v7: "
 v7 static/output.js
