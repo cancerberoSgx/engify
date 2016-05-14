@@ -56,7 +56,8 @@ var tool = {
 	}
 }
 
-// _old_console = typeof(console)==='undefined'
+
+//console
 console = {
 	log: function()
 	{
@@ -89,6 +90,19 @@ console = {
 	}
 }
 
-// console.log('sgu', typeof(window)!=='undefined' && typeof(window.document)!=='undefined' && typeof(window.document.createElement)!=='undefined')
+console.error = console.log; 
+function _fixes()
+{
+	var env = tool.environment();
+	if (env==='v7')
+	{
+		Date.prototype.getYear = Date.prototype.getFullYear;
+	}
+}
+_fixes();
+
+
+
+//some fixes for particular impleentation and libraries
 
 module.exports = tool;
