@@ -46,6 +46,8 @@ Command times so far (1 is fast - 10 is slow). This doesn't mean that the engine
     $ v7.output.js
 
  * faster than jjs - little slower than rhino
+ * the only one problematic so far
+ * problem with underscore.template - (Exec error [static/output.js]: "Invalid function body")
  * underscore worked but momentjs don't (reported issue : https://github.com/cesanta/v7/issues/555)
  * dont support deprecated apis, like Date.prototype.getYear - error in momentjs
  * for large code, must recompile it with option -DV7_LARGE_AST

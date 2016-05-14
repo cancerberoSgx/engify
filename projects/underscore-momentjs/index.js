@@ -11,4 +11,6 @@ _.each(formats, function(format)
 	output += moment().format(format) + ', ';
 }); 
 
+output += _.template('<p><%= name%></p>')({name: 'seba'})
+
 console.log(output)

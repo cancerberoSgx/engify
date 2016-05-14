@@ -17,10 +17,19 @@ This project is inspired and based on [browserify](http://browserify.org/) but t
 
 The idea is to see to what point one is able to write 'pure' JavaScript and  verify some kind of JavaScript-engine-implementation isolation by running our source code (unit test) in different implementations.
 
+#Libraries tested
+
+The following are libraries that I were able to use in all implementations: 
+
+ * underscore
+ * momentjs
+ * esprima
+ * handlebars
 
 #Interesting commands
 
-Right now all the experiment consists in this command to compile the example project test-src: 
+    #run a tool that compiles a project and run it in all the implementations: 
+    sh test-project.js projects/handlebars-test
 
     #compile sample project test-src: into a bundle
     node src/index.js --input test-src/index.js > static/output.js
