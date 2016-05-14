@@ -18,5 +18,8 @@ jjs static/output.js
 echo ""; echo "spidermonkey: "
 js static/output.js 
 
+echo ""; echo "JavaScriptCore: "
+jsc static/output.js 
+
 echo ""; echo "v7: "
 v7 static/output.js

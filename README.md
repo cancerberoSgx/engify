@@ -88,6 +88,7 @@ This last command will build givven test-src/index.js into static/ folder and th
 
  * support browser!
  * try windows native javascript engines (http://superuser.com/questions/488763/how-to-run-js-file-from-a-command-line-on-windows)
+ * move file ../../test-src/js-compat to separate project
  * put global and console.log in a commons-js module
  * bin program: engify my/project/services/service1.js > output.js
  * Should be a browserify transformation ? currently not just uses browserify js api. write it anyway : (from https://github.com/substack/browserify-handbook)
