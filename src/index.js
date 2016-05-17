@@ -19,9 +19,14 @@ var main = args['input']
 
 shell.rm('-rf', target)
 
-// console.log(path.dirname(main), path.basename(main))
+// console.log(args.browserifyTransform, path.dirname(main), path.basename(main))
 // shell.cd(path.dirname(main))
-var b = browserify(main, {transform: 'hbsfy'}).bundle(); 
+
+var browserifyOptions = {
+	transform: args.browserifyTransform || ''
+}; //{transform: 'hbsfy'}
+
+var b = browserify(main, browserifyOptions).bundle(); 
 readStream(b, function(error, buffer)
 {
 	if(error)

@@ -103,6 +103,7 @@ This last command will build givven test-src/index.js into static/ folder and th
  * Should be a browserify transformation ? currently not just uses browserify js api. write it anyway : (from https://github.com/substack/browserify-handbook)
  * put test-src as a separate project
  * browserify experiment: load libraries in ssp-libraries files and be able to use require() directly in .ss / scripts.  probably i need to use a browserify flag.
+ * try writing client side suitescript & jquery using Function.prototype.toString 
 
 
 
