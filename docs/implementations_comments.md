@@ -2,20 +2,21 @@ These are some comments on my experience trying to run the code with each implem
 
 #speed comparison
 
-Command times so far (1 is fast - 10 is slow). This doesn't mean that the engine itself is slow, just the commands: 
+Command times so far (1 is fast - 10 is slow). This doesn't mean that the engine itself is slow, just the command line tools: 
 
- * node: 1
- * rhino: 4
  * spidermonkey: 1
- * v7: 5
- * jjs : 9
+ * JavaScriptCore: 2
+ * node: 3
+ * rhino: 6
+ * v7: 7
+ * jjs : 10
  * browser : ?
  
 #node / v8
 
     $ node output.js
 
- * fastest server-side impl
+ * FAST: spidermonkey&JavaScriptCore cmd line tools are faster
  * it runs the browserified version of the code while it could also run the real node src/index.js
  * console.log implemented
 
@@ -32,13 +33,14 @@ Command times so far (1 is fast - 10 is slow). This doesn't mean that the engine
 # spidermonkey
 
  * https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey
- * faster than node
+ * FAST faster than node
  * no problems so far
 
 # JavaScriptCore
 
  * http://webreflection.blogspot.com.uy/2010/10/javascriptcore-via-terminal.html
- * OSX only
+ * tested on OSX and linux
+ * FAST faster than node but slower than spidermonkey ? 
  * no problems so far
 
 # v7: 

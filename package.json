@@ -8,7 +8,7 @@
   },
   "author": "sgurin",
   "license": "ISC",
-  "dependencies": { 
+  "dependencies": {
     "browserify": "^13.0.0",
     "shelljs": "^0.7.0",
     "yargs": "^4.6.0"
