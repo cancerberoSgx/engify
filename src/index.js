@@ -19,54 +19,62 @@ var main = args['input']
 
 shell.rm('-rf', target)
 
-// console.log(args.browserifyTransform, path.dirname(main), path.basename(main))
-// shell.cd(path.dirname(main))
-
-var browserifyOptions = {
-	transform: args.browserifyTransform || ''
-}; //{transform: 'hbsfy'}
-
-var b = browserify(main, browserifyOptions).bundle(); 
-readStream(b, function(error, buffer)
+function getPrefix()
 {
-	if(error)
-	{
-		console.log('ERROR: ', error.toString())
-		process.exit(1)
-	}
-	if(target)
-	{
-		(shell.cat(__dirname + '/assets/prefix.js') + '; ' + buffer).to(target); 
-	}
-	else
-	{
-		console.log(shell.cat(__dirname + '/assets/prefix.js') + '; ' + buffer)
-	}
-}); 
-
-
-
-
-//utilities 
-function readStream(stream, fn)
-{
-	var buffers = [];
-	stream.on('data', function(buffer) 
-	{
-		buffers.push(buffer);
-	});
-	stream.on('error', function(error) 
-	{
-		fn(error)
-	});
-	stream.on('end', function() 
-	{
-		var buffer = Buffer.concat(buffers);
-		fn(null, buffer)
-	})
+	return shell.cat(__dirname + '/assets/prefix.js') + '; ';
 }
 
+if(main)
+{
 
+	// console.log(args.browserifyTransform, path.dirname(main), path.basename(main))
+	// shell.cd(path.dirname(main))
+
+	var browserifyOptions = {
+		transform: args.browserifyTransform || ''
+	}; //{transform: 'hbsfy'}
+
+	var b = browserify(main, browserifyOptions).bundle(); 
+	readStream(b, function(error, buffer)
+	{
+		if(error)
+		{
+			console.log('ERROR: ', error.toString())
+			process.exit(1)
+		}
+		if(target)
+		{
+			(getPrefix() + buffer).to(target); 
+		}
+		else
+		{
+			console.log(getPrefix() + buffer)
+		}
+	}); 
+
+
+
+
+	//utilities 
+	function readStream(stream, fn)
+	{
+		var buffers = [];
+		stream.on('data', function(buffer) 
+		{
+			buffers.push(buffer);
+		});
+		stream.on('error', function(error) 
+		{
+			fn(error)
+		});
+		stream.on('end', function() 
+		{
+			var buffer = Buffer.concat(buffers);
+			fn(null, buffer)
+		})
+	}
+
+}
 
 
 
@@ -77,24 +85,21 @@ var path = require('path');
 var through = require('through2');
 
 
+// function compile(filename, source, options, callback) 
+// {
+//     // console.log('compile ', filename)
+//     var compiled = getPrefix() + source;
+//     callback(null, compiled + '\n');
+// }
 
-function compile(filename, source, options, callback) 
-{
-    var compiled;
-    // console.log('compile ', filename)
-    var compiled = source;
-    callback(null, compiled + '\n');
-}
-
+var onlyFirst = false; 
 function engify(filename, options) 
 {
 	// console.log('engify', filename)
 
     if (typeof options === 'undefined' || options === null) options = {};
 
-    var compileOptions = 
-    {
-    };
+    var compileOptions = {};
 
     var chunks = [];
     function transform(chunk, encoding, callback) 
@@ -103,19 +108,51 @@ function engify(filename, options)
         callback();
     }
 
-    function flush(callback) {
+    function flush(callback) 
+    {
         var stream = this;
+        if(!onlyFirst)
+    	{
+    		onlyFirst=true;
+    		console.log(getPrefix()+'\n')
+    		// stream.push(getPrefix().toString());
+    	}
         var source = Buffer.concat(chunks).toString();
-        compile(filename, source, compileOptions, function(error, result) 
-        {
-            if (!error) stream.push(result);
-            callback(error);
-        });
+    	stream.push(source);
+    	callback(null)
+  //       compile(filename, source, compileOptions, function(error, result) 
+  //       {
+
+		// // console.log('INDEX result', error, 	result.length)
+  //           if (!error) stream.push(result);
+  //           callback(error);
+  //       });
     }
+
+  //   function flush(callback) {
+  //   	// if(onlyFirst)
+  //   	// {
+  //   	// 	return
+  //   	// }
+  //   	onlyFirst = true;
+  //       var stream = this;
+  //       var source = Buffer.concat(chunks).toString();
+  //       compile(filename, source, compileOptions, function(error, result) 
+  //       {
+
+		// // console.log('INDEX result', error, 	result.length)
+  //           if (!error) stream.push(result);
+  //           callback(error);
+  //       });
+  //   }
 
     return through(transform, flush);
 }
 
-engify.compile = compile;
+// engify.compile = compile;
 
 module.exports = engify;
+
+
+
+
