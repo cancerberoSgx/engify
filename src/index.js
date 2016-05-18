@@ -108,13 +108,10 @@ function engify(filename, options)
         var source = Buffer.concat(chunks).toString();
     	stream.push(source);
     	callback(null)
+    }
     return through(transform, flush);
 }
 
 // engify.compile = compile;
 
 module.exports = engify;
-
-
-
-

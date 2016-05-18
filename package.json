@@ -4,7 +4,7 @@
   "description": "tools for running the js in several engines - based on commons.js - browserify",
   "main": "./src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node node_modules/jasmine/bin/jasmine.js"
   },
   "author": "sgurin",
   "license": "ISC",
