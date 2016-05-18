@@ -4,6 +4,7 @@ IMPORTANT : For running this project first run the following in the root engify 
 
 Compiling and runing it: 
 
+    mkdir static
     node src/index.js --input projects/hbsfy-test/test.js --browserify-transform="hbsfy" > static/output.js
     node static/output.js
 

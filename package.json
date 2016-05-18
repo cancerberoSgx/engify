@@ -10,7 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "browserify": "^13.0.0",
+    "convert-source-map": "^1.2.0",
+    "handlebars": "^4.0.5",
+    "hbsfy": "^2.7.0",
     "shelljs": "^0.7.0",
+    "through2": "^2.0.1",
     "yargs": "^4.6.0"
   }
 }

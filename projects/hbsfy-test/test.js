@@ -4,4 +4,9 @@ require('../../test-src/js-compat')
 
 var result = template1({name: 'seba'})
 
+global.service = function(request, response)
+{
+	response.write(result)
+}
+
 console.log(result)

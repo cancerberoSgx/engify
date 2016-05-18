@@ -65,3 +65,57 @@ function readStream(stream, fn)
 		fn(null, buffer)
 	})
 }
+
+
+
+
+
+//I'm a browserify transformation. Based on https://github.com/jnordberg/coffeeify/blob/master/index.js
+// npm install --save convert-source-map through2
+var convert = require('convert-source-map');
+var path = require('path');
+var through = require('through2');
+
+
+
+function compile(filename, source, options, callback) 
+{
+    var compiled;
+    // console.log('compile ', filename)
+    var compiled = source;
+    callback(null, compiled + '\n');
+}
+
+function engify(filename, options) 
+{
+	// console.log('engify', filename)
+
+    if (typeof options === 'undefined' || options === null) options = {};
+
+    var compileOptions = 
+    {
+    };
+
+    var chunks = [];
+    function transform(chunk, encoding, callback) 
+    {
+        chunks.push(chunk);
+        callback();
+    }
+
+    function flush(callback) {
+        var stream = this;
+        var source = Buffer.concat(chunks).toString();
+        compile(filename, source, compileOptions, function(error, result) 
+        {
+            if (!error) stream.push(result);
+            callback(error);
+        });
+    }
+
+    return through(transform, flush);
+}
+
+engify.compile = compile;
+
+module.exports = engify;
