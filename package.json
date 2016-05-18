@@ -16,5 +16,8 @@
     "shelljs": "^0.7.0",
     "through2": "^2.0.1",
     "yargs": "^4.6.0"
+  },
+  "devDependencies": {
+    "jasmine": "^2.4.1"
   }
 }

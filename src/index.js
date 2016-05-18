@@ -51,10 +51,7 @@ if(main)
 			console.log(getPrefix() + buffer)
 		}
 	}); 
-
-
-
-
+	
 	//utilities 
 	function readStream(stream, fn)
 	{
@@ -84,14 +81,6 @@ var convert = require('convert-source-map');
 var path = require('path');
 var through = require('through2');
 
-
-// function compile(filename, source, options, callback) 
-// {
-//     // console.log('compile ', filename)
-//     var compiled = getPrefix() + source;
-//     callback(null, compiled + '\n');
-// }
-
 var onlyFirst = false; 
 function engify(filename, options) 
 {
@@ -114,38 +103,11 @@ function engify(filename, options)
         if(!onlyFirst)
     	{
     		onlyFirst=true;
-    		console.log(getPrefix()+'\n')
-    		// stream.push(getPrefix().toString());
+    		console.log(getPrefix()+'\n'); // print to stdout
     	}
         var source = Buffer.concat(chunks).toString();
     	stream.push(source);
     	callback(null)
-  //       compile(filename, source, compileOptions, function(error, result) 
-  //       {
-
-		// // console.log('INDEX result', error, 	result.length)
-  //           if (!error) stream.push(result);
-  //           callback(error);
-  //       });
-    }
-
-  //   function flush(callback) {
-  //   	// if(onlyFirst)
-  //   	// {
-  //   	// 	return
-  //   	// }
-  //   	onlyFirst = true;
-  //       var stream = this;
-  //       var source = Buffer.concat(chunks).toString();
-  //       compile(filename, source, compileOptions, function(error, result) 
-  //       {
-
-		// // console.log('INDEX result', error, 	result.length)
-  //           if (!error) stream.push(result);
-  //           callback(error);
-  //       });
-  //   }
-
     return through(transform, flush);
 }
 
