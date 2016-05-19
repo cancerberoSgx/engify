@@ -7,6 +7,116 @@ if(typeof(global)==='undefined')
 }; 
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+//TODO pack this better. 
+// var _ = require('underscore')
+var tool = {
+	isJJS: function()
+	{
+		return typeof(Java) ==='object';
+	}
+,	isns: function()
+	{
+		return typeof(nlapiLoadRecord)!=='undefined';
+	}
+,	isNode: function()
+	{
+		return typeof(console)!=='undefined';
+	}
+,	isRhino: function()
+	{
+		return typeof(java)!=='undefined';
+	}
+,	isBrowser: function()
+	{
+		return false//typeof(window)!=='undefined' && typeof(window.document)!=='undefined' && typeof(window.document.createElement)!=='undefined'; 
+	}
+,	isV7: function()
+	{
+		return typeof(print)!=='undefined';
+	}
+	//TODO: javascriptcore, spidermonkey
+,	environment: function()
+	{
+		var env;
+		if(tool.isns())
+		{
+			env = 'ns';
+		}
+		else if(tool.isBrowser())
+		{			
+			env = 'browser';
+		}
+		else if(tool.isV7())
+		{			
+			env = 'v7';
+		}
+		else if(tool.isJJS())	
+		{			
+			env = 'jjs';	
+		}
+		else if(tool.isRhino())
+		{
+			env = 'rhino';
+		}
+		else if(tool.isNode())
+		{			
+			env = 'node';
+		}
+		return env
+	}
+}
+
+
+//console
+console = {
+	log: function()
+	{
+		var env = tool.environment();
+		if(env==='ns')
+		{
+			nlapiLogExecution('DEBUG',  'jslog', Array.prototype.slice.call(arguments).join(', '));
+		}
+		else if(env==='jjs')
+		{
+			var System = Java.type('java.lang.System');
+			System.out.println(Array.prototype.slice.call(arguments).join(', '));		
+		}
+		else if(env==='rhino')
+		{
+			java.lang.System.out.println(Array.prototype.slice.call(arguments).join(', '));		
+		}
+		else if(env==='node')
+		{
+			console.log.apply(console, arguments);
+		}
+		else if(env==='browser')
+		{
+			console.log.apply(console, arguments);
+		}
+		else if(env==='v7')
+		{
+			print.apply(this, arguments)
+		}
+	}
+}
+
+console.error = console.log; 
+function _fixes()
+{
+	var env = tool.environment();
+	if (env==='v7')
+	{
+		Date.prototype.getYear = Date.prototype.getFullYear;
+	}
+}
+_fixes();
+
+
+
+//some fixes for particular impleentation and libraries
+
+module.exports = tool;
+},{}],2:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -74,7 +184,7 @@ exports['default'] = inst;
 module.exports = exports['default'];
 
 
-},{"./handlebars/base":2,"./handlebars/exception":5,"./handlebars/no-conflict":15,"./handlebars/runtime":16,"./handlebars/safe-string":17,"./handlebars/utils":18}],2:[function(require,module,exports){
+},{"./handlebars/base":3,"./handlebars/exception":6,"./handlebars/no-conflict":16,"./handlebars/runtime":17,"./handlebars/safe-string":18,"./handlebars/utils":19}],3:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -180,7 +290,7 @@ exports.createFrame = _utils.createFrame;
 exports.logger = _logger2['default'];
 
 
-},{"./decorators":3,"./exception":5,"./helpers":6,"./logger":14,"./utils":18}],3:[function(require,module,exports){
+},{"./decorators":4,"./exception":6,"./helpers":7,"./logger":15,"./utils":19}],4:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -198,7 +308,7 @@ function registerDefaultDecorators(instance) {
 }
 
 
-},{"./decorators/inline":4}],4:[function(require,module,exports){
+},{"./decorators/inline":5}],5:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -229,7 +339,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":18}],5:[function(require,module,exports){
+},{"../utils":19}],6:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -271,7 +381,7 @@ exports['default'] = Exception;
 module.exports = exports['default'];
 
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -319,7 +429,7 @@ function registerDefaultHelpers(instance) {
 }
 
 
-},{"./helpers/block-helper-missing":7,"./helpers/each":8,"./helpers/helper-missing":9,"./helpers/if":10,"./helpers/log":11,"./helpers/lookup":12,"./helpers/with":13}],7:[function(require,module,exports){
+},{"./helpers/block-helper-missing":8,"./helpers/each":9,"./helpers/helper-missing":10,"./helpers/if":11,"./helpers/log":12,"./helpers/lookup":13,"./helpers/with":14}],8:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -360,7 +470,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":18}],8:[function(require,module,exports){
+},{"../utils":19}],9:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -456,7 +566,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../exception":5,"../utils":18}],9:[function(require,module,exports){
+},{"../exception":6,"../utils":19}],10:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -483,7 +593,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../exception":5}],10:[function(require,module,exports){
+},{"../exception":6}],11:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -514,7 +624,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":18}],11:[function(require,module,exports){
+},{"../utils":19}],12:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -542,7 +652,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -556,7 +666,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -591,7 +701,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":18}],14:[function(require,module,exports){
+},{"../utils":19}],15:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -640,7 +750,7 @@ exports['default'] = logger;
 module.exports = exports['default'];
 
 
-},{"./utils":18}],15:[function(require,module,exports){
+},{"./utils":19}],16:[function(require,module,exports){
 (function (global){
 /* global window */
 'use strict';
@@ -664,7 +774,7 @@ module.exports = exports['default'];
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -958,7 +1068,7 @@ function executeDecorators(fn, prog, container, depths, data, blockParams) {
 }
 
 
-},{"./base":2,"./exception":5,"./utils":18}],17:[function(require,module,exports){
+},{"./base":3,"./exception":6,"./utils":19}],18:[function(require,module,exports){
 // Build out our basic SafeString type
 'use strict';
 
@@ -975,7 +1085,7 @@ exports['default'] = SafeString;
 module.exports = exports['default'];
 
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -1101,16 +1211,16 @@ function appendContextPath(contextPath, id) {
 }
 
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime')['default'];
 
-},{"./dist/cjs/handlebars.runtime":1}],20:[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":2}],21:[function(require,module,exports){
 (function (global){
 var template1 = require('./template1.hbs') ;
 
-require('../../test-src/js-compat')
+require('../../engify-base')
 
 var result = template1({name: 'seba'})
 
@@ -1122,10 +1232,10 @@ global.service = function(request, response)
 console.log(result)
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../test-src/js-compat":23,"./template1.hbs":22}],21:[function(require,module,exports){
+},{"../../engify-base":1,"./template1.hbs":23}],22:[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":19}],22:[function(require,module,exports){
+},{"handlebars/runtime":20}],23:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -1136,113 +1246,4 @@ module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":f
     + "</p>\n</body>\n</html>";
 },"useData":true});
 
-},{"hbsfy/runtime":21}],23:[function(require,module,exports){
-//TODO pack this better. 
-// var _ = require('underscore')
-var tool = {
-	isJJS: function()
-	{
-		return typeof(Java) ==='object';
-	}
-,	isns: function()
-	{
-		return typeof(nlapiLoadRecord)!=='undefined';
-	}
-,	isNode: function()
-	{
-		return typeof(console)!=='undefined';
-	}
-,	isRhino: function()
-	{
-		return typeof(java)!=='undefined';
-	}
-,	isBrowser: function()
-	{
-		return false//typeof(window)!=='undefined' && typeof(window.document)!=='undefined' && typeof(window.document.createElement)!=='undefined'; 
-	}
-,	isV7: function()
-	{
-		return typeof(print)!=='undefined';
-	}
-,	environment: function()
-	{
-		var env;
-		if(tool.isns())
-		{
-			env = 'ns';
-		}
-		else if(tool.isBrowser())
-		{			
-			env = 'browser';
-		}
-		else if(tool.isV7())
-		{			
-			env = 'v7';
-		}
-		else if(tool.isJJS())	
-		{			
-			env = 'jjs';	
-		}
-		else if(tool.isRhino())
-		{
-			env = 'rhino';
-		}
-		else if(tool.isNode())
-		{			
-			env = 'node';
-		}
-		return env
-	}
-}
-
-
-//console
-console = {
-	log: function()
-	{
-		var env = tool.environment();
-		if(env==='ns')
-		{
-			nlapiLogExecution('DEBUG',  'jslog', Array.prototype.slice.call(arguments).join(', '));
-		}
-		else if(env==='jjs')
-		{
-			var System = Java.type('java.lang.System');
-			System.out.println(Array.prototype.slice.call(arguments).join(', '));		
-		}
-		else if(env==='rhino')
-		{
-			java.lang.System.out.println(Array.prototype.slice.call(arguments).join(', '));		
-		}
-		else if(env==='node')
-		{
-			console.log.apply(console, arguments);
-		}
-		else if(env==='browser')
-		{
-			console.log.apply(console, arguments);
-		}
-		else if(env==='v7')
-		{
-			print.apply(this, arguments)
-		}
-	}
-}
-
-console.error = console.log; 
-function _fixes()
-{
-	var env = tool.environment();
-	if (env==='v7')
-	{
-		Date.prototype.getYear = Date.prototype.getFullYear;
-	}
-}
-_fixes();
-
-
-
-//some fixes for particular impleentation and libraries
-
-module.exports = tool;
-},{}]},{},[20]);
+},{"hbsfy/runtime":22}]},{},[21]);

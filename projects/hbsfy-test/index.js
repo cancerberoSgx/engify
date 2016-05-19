@@ -1,6 +1,6 @@
 var template1 = require('./template1.hbs') ;
 
-require('../../test-src/js-compat')
+require('../../engify-base')
 
 var result = template1({name: 'seba'})
 
