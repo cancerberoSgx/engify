@@ -1,11 +1,11 @@
 {
-  "name": "hbsfy-test",
+  "name": "engify-base",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is the engify client side support scripts.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "sg",
+  "author": "",
   "license": "ISC"
 }

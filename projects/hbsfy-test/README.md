@@ -1,12 +1,8 @@
 IMPORTANT : For running this project first run the following in the root engify folder:
     
-    npm install --save handlebars hbsfy
+    cd projects/hbsfy-test
+    npm install
+    browserify -t engify -t hbsfy test.js > output.js
+    rhino output.js
 
-Compiling and runing it: 
-
-    mkdir static
-    node src/index.js --input projects/hbsfy-test/test.js --browserify-transform="hbsfy" > static/output.js
-    node static/output.js
-
-
-This project shows how to write handlebars templates along our code and require them - based on browserify transofmration hbsfy
+This project shows how to write handlebars templates along our code and require them - based on browserify transformation hbsfy
