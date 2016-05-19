@@ -47,9 +47,11 @@ Command times so far (1 is fast - 10 is slow). This doesn't mean that the engine
 
     $ v7.output.js
 
- * faster than jjs - little slower than rhino
- * the only one problematic so far
- * problem with underscore.template - (Exec error [static/output.js]: "Invalid function body")
- * underscore worked but momentjs don't (reported issue : https://github.com/cesanta/v7/issues/555)
+ * faster than jjs - bit slower than rhino
+ * problematic - not including it in tests. 
+ * problem with underscore.template - (Exec error [static/output.js]: "Invalid function body"). Reason: with() is not implemented
+ * momentjs don't work because of https://github.com/cesanta/v7/issues/555 and  https://github.com/moment/moment/issues/3185 
+ * underscore template dont work - the rest does. cause: 'with' keyword not supported. 
  * dont support deprecated apis, like Date.prototype.getYear - error in momentjs
- * for large code, must recompile it with option -DV7_LARGE_AST
+ * for large code (generally is if you use libs), must recompile it with option -DV7_LARGE_AST
+
