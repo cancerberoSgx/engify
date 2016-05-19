@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "engify-base": "file:../../../engify-base",
     "moment": "^1.7.2",
     "underscore": "^1.8.3"
   }

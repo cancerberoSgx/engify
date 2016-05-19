@@ -19,7 +19,7 @@ describe('separated libs test', function()
 		shell.cd('./projects/separated-libs-test/lib/')
 		expect(shell.exec('npm install').code).toBe(0)
 
-		var p = shell.exec('browserify -r underscore -r moment')
+		var p = shell.exec('browserify -r underscore -r moment index.js')
 		shell.rm('lib.js')
 		p.to('lib.js')
 		expect(p.code).toBe(0)
@@ -43,9 +43,9 @@ describe('separated libs test', function()
 			return output.indexOf('<b>5 years ago, name: seba g</b>')!==-1
 		})
 
-		shell.rm('../lib/lib.js')
-		shell.rm('all.js')
-		shell.rm('client.js')
+		// shell.rm('../lib/lib.js')
+		// shell.rm('all.js')
+		// shell.rm('client.js')
 		shell.cd('../../..')
 	});
 

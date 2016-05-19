@@ -28,6 +28,9 @@ The following are libraries that I were able to use in all implementations:
 
 #Interesting commands
 
+    #run tests - located at spec/ folder
+    npm test
+
     #run a tool that compiles a project and run it in all the implementations: 
     sh test-project.js projects/handlebars-test
 

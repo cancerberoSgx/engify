@@ -19,9 +19,23 @@ var main = args['input']
 
 shell.rm('-rf', target)
 
+
+//do uglify
+
+var esprima = require('esprima'), 
+escodegen = require('escodegen');
+
+function doUglify(s)
+{
+	var ast = esprima.parse(s);
+	return escodegen.generate(ast, {format: escodegen.FORMAT_MINIFY}) || s;
+	return s;
+}
+
+
 function getPrefix()
 {
-	return shell.cat(__dirname + '/assets/prefix.js') + '; ';
+	return doUglify(shell.cat(__dirname + '/assets/prefix.js')) + '; ';
 }
 
 if(main)
