@@ -7,7 +7,8 @@ This projects is just some basic ideas and experiments to see if we can write js
  * [rhino](https://developer.mozilla.org/es/docs/Rhino)
  * [Nashorn](https://en.wikipedia.org/wiki/Nashorn_(JavaScript_engine))
  * spidermonkey (https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey)
- * JavaScriptCore (webkit.org - safary)
+ * JavaScriptCore (http://webkit.org - safary)
+ * ringojs (http://ringojs.org/)
  * [v7](https://github.com/cesanta/v7) 
 
 

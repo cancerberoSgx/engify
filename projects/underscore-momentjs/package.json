@@ -12,5 +12,8 @@
     "moment": "^2.13.0",
     "momentjs": "^1.1.6",
     "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "engify": "file:../.."
   }
 }

@@ -1,0 +1,7 @@
+Original code: <pre>var a = 'hello'; 
+
+	for(var i = 0; i<8; i++)
+{
+		console.log(a+i);
+}
+</pre><br/>Minified code: <pre>var a='hello';for(var i=0;i<8;i++){console.log(a+i)}</pre>[0m

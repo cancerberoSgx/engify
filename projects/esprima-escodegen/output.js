@@ -7327,7 +7327,7 @@ module.exports={
   },
   "_id": "escodegen@1.8.0",
   "_shasum": "b246aae829ce73d59e2c55727359edd1c130a81b",
-  "_from": "escodegen@latest",
+  "_from": "escodegen@>=1.8.0 <2.0.0",
   "_npmVersion": "2.14.4",
   "_nodeVersion": "4.1.1",
   "_npmUser": {
