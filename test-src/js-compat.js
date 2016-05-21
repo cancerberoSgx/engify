@@ -91,18 +91,20 @@ console = {
 }
 
 console.error = console.log; 
-function _fixes()
-{
-	var env = tool.environment();
-	if (env==='v7')
-	{
-		Date.prototype.getYear = Date.prototype.getFullYear;
-	}
-}
-_fixes();
+
+
+//some fixes for particular impleentation and libraries: 
+// function _fixes()
+// {
+// 	var env = tool.environment();
+// 	if (env==='v7')
+// 	{
+// 		Date.prototype.getYear = Date.prototype.getFullYear;
+// 	}
+// }
+// _fixes();
 
 
 
-//some fixes for particular impleentation and libraries
 
 module.exports = tool;
