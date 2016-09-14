@@ -1,0 +1,322 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..3c3629e
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1 @@
++node_modules
+diff --git a/package.json b/package.json
+index 3d227d7..5d8c6e2 100644
+--- a/package.json
++++ b/package.json
+@@ -9,8 +9,7 @@
+   "author": "",
+   "license": "ISC",
+   "dependencies": {
+-    "parse-diff": "^0.3.2",
+-    "shelljs": "^0.7.3"
++    "parse-diff": "^0.3.2"
+   },
+   "devDependencies": {
+     "handlebars": "^4.0.5",
+diff --git a/src/application/Application.js b/src/application/Application.js
+index 47bd1c2..a0e189d 100644
+--- a/src/application/Application.js
++++ b/src/application/Application.js
+@@ -27,6 +27,10 @@ _.extend(Application.prototype, {
+ 	{
+ 		this.diff = diffUtils.parseDiff(content)
+ 	}
++,	getDiff: function()
++	{
++		return this.diff
++	}
+ })
+ 
+ module.exports = Application
+\ No newline at end of file
+diff --git a/src/application/Workspace.js b/src/application/Workspace.js
+new file mode 100644
+index 0000000..16ecf73
+--- /dev/null
++++ b/src/application/Workspace.js
+@@ -0,0 +1,9 @@
++var Workspace = function(){}
++var _ = require('../lib/underscore')
++
++_.extend(Workspace.prototype, {
++	
++})
++Workspace.instance = new Workspace()
++
++module.exports = Workspace;
+\ No newline at end of file
+diff --git a/src/template/editor/workspace.hbs b/src/template/editor/workspace.hbs
+index f69f5c3..f2b17ac 100644
+--- a/src/template/editor/workspace.hbs
++++ b/src/template/editor/workspace.hbs
+@@ -2,4 +2,6 @@ workspace! <a href="#openFile">open file</a>
+ 
+ <div data-view="file-tree"></div>
+ 
++<div data-view="file-editor"></div>
++
+ end workspace
+\ No newline at end of file
+diff --git a/src/utils/DiffUtils.js b/src/utils/DiffUtils.js
+index 0498b94..0952dc8 100644
+--- a/src/utils/DiffUtils.js
++++ b/src/utils/DiffUtils.js
+@@ -9,13 +9,11 @@ module.exports = {
+ 		var tree = this.pathsToTree(filePaths)
+ 		this.visitTreeNodes(tree, function(n)
+ 		{
+-			// console.log('visittreenodes', n)
+ 			n.data = _.find(files, function(f){return f.from===n.id})
++			// n.children = n.children && n.children.length ? n.children : undefined
++			n.text = n.name; //for jstree
+ 		})
+-		
+-		console.log(tree)
+-		// this.parseFilePath(files[0].from)
+-		// _.each(parsed, (p)=>{diffUtils.parseFilePath(p.from)})
++		return tree;
+ 	}
+ 
+ 
+@@ -35,7 +33,8 @@ module.exports = {
+ // 	}
+ 
+ 
+-	// path strings to tree structure utility: pathToTree
++	// path strings to tree structure utility: pathsToTree. input is an array of string file paths. 
++	// Given paths will be 'normalized' to unix. The output is a tree structure
+ 
+ ,	folderSep: '/'
+ 
+@@ -55,7 +54,7 @@ module.exports = {
+ 					inner.push(arr[j])
+ 				}
+ 				var file = inner.join(self.folderSep)
+-				tree[file] = tree[file] || {id: file, text: file, children: []}
++				tree[file] = tree[file] || {id: file, name: inner[inner.length-1], children: []}
+ 			}
+ 		})
+ 		//now we assign parentship in 'children' property. Also find the root node
+diff --git a/src/view/editor/FileTreeView.js b/src/view/editor/FileTreeView.js
+index b58bb7f..db12bef 100644
+--- a/src/view/editor/FileTreeView.js
++++ b/src/view/editor/FileTreeView.js
+@@ -6,29 +6,35 @@ module.exports = AbstractView.extend({
+ 
+ 	template: require('../../template/editor/filetree.hbs')
+ 
++,	treeSelectionHandler: function(e, data)
++	{
++		var model = data.node;
++		this.workspace
++
++		console.log(data, e);
++			// console.log(data.selected);
++	}
++
+ ,	afterRender: function()
+ 	{
+ 		this.diff = this.application.getDiff()
++		if(!this.diff)
++		{
++			Backbone.history.navigate('openFile', {trigger: true})
++			alert('You have to choose a diff file first.')
++		}
++
++		var data = [this.diff];
++
+ 
+ 		this.$('[data-type="tree"]').jstree({
+ 			'core' : {
+-				'data' : [this.diff]
+-				// [
+-				// 	{ "text" : "Root node", "children" : [
+-				// 			{ "text" : "Child node 1" },
+-				// 			{ "text" : "Child node 2" }
+-				// 		]
+-				// 	}
+-				// ]
++				'data' : data
+ 			}
+ 		});
+ 
+-
+-		this.$('[data-type="tree"]').on("changed.jstree", function (e, data) 
+-		 {
+-			console.log("The selected nodes are:");
+-			console.log(data.selected);
+-		});
++		//backbone events won't work for this binding:
++		this.$('[data-type="tree"]').on("changed.jstree", _.bind(this.treeSelectionHandler, this))
+ 	}
+ 
+ })
+\ No newline at end of file
+diff --git a/src/view/editor/WorkspaceView.js b/src/view/editor/WorkspaceView.js
+index a192680..9c33851 100644
+--- a/src/view/editor/WorkspaceView.js
++++ b/src/view/editor/WorkspaceView.js
+@@ -13,5 +13,14 @@ module.exports = AbstractView.extend({
+ 			view.application = parentView.application
+ 			return view;
+ 		}
++
++	,	'file-editor': function(parentView)
++		{
++			var view = new FileTreeView()
++			view.application = parentView.application
++			return view;
++		}
++
++		
+ 	}
+ })
+\ No newline at end of file
+diff --git a/static/bundle.js b/static/bundle.js
+index 86e20ec..9f100dd 100644
+--- a/static/bundle.js
++++ b/static/bundle.js
+@@ -1322,6 +1322,10 @@ _.extend(Application.prototype, {
+ 	{
+ 		this.diff = diffUtils.parseDiff(content)
+ 	}
++,	getDiff: function()
++	{
++		return this.diff
++	}
+ })
+ 
+ module.exports = Application
+@@ -1367,7 +1371,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":f
+ // hbsfy compiled Handlebars template
+ var HandlebarsCompiler = require('hbsfy/runtime');
+ module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+-    return "workspace! <a href=\"#openFile\">open file</a>\n\n<div data-view=\"file-tree\"></div>\n\nend workspace";
++    return "workspace! <a href=\"#openFile\">open file</a>\n\n<div data-view=\"file-tree\"></div>\n\n<div data-view=\"file-editor\"></div>\n\nend workspace";
+ },"useData":true});
+ 
+ },{"hbsfy/runtime":20}],29:[function(require,module,exports){
+@@ -1389,13 +1393,11 @@ module.exports = {
+ 		var tree = this.pathsToTree(filePaths)
+ 		this.visitTreeNodes(tree, function(n)
+ 		{
+-			// console.log('visittreenodes', n)
+ 			n.data = _.find(files, function(f){return f.from===n.id})
++			// n.children = n.children && n.children.length ? n.children : undefined
++			n.text = n.name; //for jstree
+ 		})
+-		
+-		console.log(tree)
+-		// this.parseFilePath(files[0].from)
+-		// _.each(parsed, (p)=>{diffUtils.parseFilePath(p.from)})
++		return tree;
+ 	}
+ 
+ 
+@@ -1415,7 +1417,8 @@ module.exports = {
+ // 	}
+ 
+ 
+-	// path strings to tree structure utility: pathToTree
++	// path strings to tree structure utility: pathsToTree. input is an array of string file paths. 
++	// Given paths will be 'normalized' to unix. The output is a tree structure
+ 
+ ,	folderSep: '/'
+ 
+@@ -1435,7 +1438,7 @@ module.exports = {
+ 					inner.push(arr[j])
+ 				}
+ 				var file = inner.join(self.folderSep)
+-				tree[file] = tree[file] || {id: file, children: []}
++				tree[file] = tree[file] || {id: file, name: inner[inner.length-1], children: []}
+ 			}
+ 		})
+ 		//now we assign parentship in 'children' property. Also find the root node
+@@ -1497,11 +1500,11 @@ module.exports = Backbone.View.extend({
+ 			}
+ 		})
+ 	}
+-,	renderIn: function($el)
+-	{
+-		this.$el = $el
+-		this.render()
+-	}
++// ,	renderIn: function($el)
++// 	{
++// 		this.$el = $el
++// 		this.render()
++// 	}
+ 
+ ,	template: function()
+ 	{
+@@ -1563,26 +1566,35 @@ module.exports = AbstractView.extend({
+ 
+ 	template: require('../../template/editor/filetree.hbs')
+ 
++,	treeSelectionHandler: function(e, data)
++	{
++		var model = data.node;
++		this.workspace
++
++		console.log(data, e);
++			// console.log(data.selected);
++	}
++
+ ,	afterRender: function()
+ 	{
++		this.diff = this.application.getDiff()
++		if(!this.diff)
++		{
++			Backbone.history.navigate('openFile', {trigger: true})
++			alert('You have to choose a diff file first.')
++		}
++
++		var data = [this.diff];
++
++
+ 		this.$('[data-type="tree"]').jstree({
+ 			'core' : {
+-				'data' : [
+-					{ "text" : "Root node", "children" : [
+-							{ "text" : "Child node 1" },
+-							{ "text" : "Child node 2" }
+-						]
+-					}
+-				]
++				'data' : data
+ 			}
+ 		});
+ 
+-
+-		this.$('[data-type="tree"]').on("changed.jstree", function (e, data) 
+-		 {
+-			console.log("The selected nodes are:");
+-			console.log(data.selected);
+-		});
++		//backbone events won't work for this binding:
++		this.$('[data-type="tree"]').on("changed.jstree", _.bind(this.treeSelectionHandler, this))
+ 	}
+ 
+ })
+@@ -1602,6 +1614,15 @@ module.exports = AbstractView.extend({
+ 			view.application = parentView.application
+ 			return view;
+ 		}
++
++	,	'file-editor': function(parentView)
++		{
++			var view = new FileTreeView()
++			view.application = parentView.application
++			return view;
++		}
++
++		
+ 	}
+ })
+ },{"../../lib/underscore":26,"../../template/editor/workspace.hbs":28,"../../view/AbstractView":31,"./FileTreeView":33}],35:[function(require,module,exports){

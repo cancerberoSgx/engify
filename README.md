@@ -1,6 +1,6 @@
 #What's this?
 
-This projects is just some basic ideas and experiments to see if we can write js code that runs in several js engines implementations: 
+Browserify transformation that add minimal support for running node.js projects in multiple JavaScript implementations:
 
  * node
  * browser
@@ -11,21 +11,38 @@ This projects is just some basic ideas and experiments to see if we can write js
  * ringojs (http://ringojs.org/)
  * [v7](https://github.com/cesanta/v7) 
 
-
-This project is inspired and based on [browserify](http://browserify.org/) but try to extend the browser-node to other js engines like rhino, nashhorn, etc.
+Particularly it adds support for: 
+ * console.log
+ * global object
 
 *Right now is just an idea and experiments*
 
 The idea is to see to what point one is able to write 'pure' JavaScript and  verify some kind of JavaScript-engine-implementation isolation by running our source code (unit test) in different implementations.
+
+#Usage
+
+    browserify -t engify index.js -o output.js
+    rhino output.js
+    jsc output.js
 
 #Libraries tested
 
 The following are libraries that I were able to use in all implementations: 
 
  * underscore
+ * lodash
  * momentjs
  * esprima
+ * escodegen
  * handlebars
+
+#Objectives
+
+ * Be able to write code using npm and run it in all javascript implementations. 
+ * support some very basic apis in all the impls, like console.log and the global object.
+ * try to run js libraries that currently support browser and node like underscore, momentjs, esprima, lodash, acorn, etc in the rest of the implementations. 
+
+
 
 #Interesting commands
 
@@ -62,27 +79,8 @@ The following are libraries that I were able to use in all implementations:
 
 
 
-#Objectives
 
- * Be able to write code using npm and run it in all javascript implementations. 
- * support some very basic apis in all the impls, like console.log and the global object.
- * try to run js libraries that currently support browser and node like underscore, momentjs, esprima, lodash, acorn, etc in the rest of the implementations. 
-
-#APIs implemented
-
-As in browserify, we need to implement some apis outside the JavaScript language standard, so far: 
-
- * console.log
- * GLOBAL : the GLOBAL this object outside browserify's closures. 
- * -end of the list-
-
-#libraries supported/tested
-
- * underscore
- * momentjs
- * esprima
-
-#Release Test
+#Release Tests
 
 On any commit we should make the following commands work: 
 

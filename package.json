@@ -13,12 +13,9 @@
     "convert-source-map": "^1.2.0",
     "escodegen": "^1.8.0",
     "esprima": "^2.7.2",
-    "shelljs": "^0.7.0",
-    "through2": "^2.0.1",
-    "yargs": "^4.6.0"
+    "through2": "^2.0.1"
   },
   "devDependencies": {
-    "coffeeify": "^2.0.1",
     "jasmine": "^2.4.1"
   }
 }

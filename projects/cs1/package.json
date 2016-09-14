@@ -10,6 +10,6 @@
   "license": "ISC",
   "devDependencies": {
     "coffeeify": "^2.0.1",
-    "engify": "file:///Users/sgurin/git/engify"
+    "engify": "../.."
   }
 }
