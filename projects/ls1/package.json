@@ -1,0 +1,17 @@
+{
+  "name": "ls1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "anyify": "^1.0.1",
+    "browserify-livescript": "^0.2.3",
+    "engify": "file:///Users/sgurin/git/engify",
+    "prelude-ls": "^1.1.2"
+  }
+}

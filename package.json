@@ -13,14 +13,8 @@
     "convert-source-map": "^1.2.0",
     "escodegen": "^1.8.0",
     "esprima": "^2.7.2",
-    "handlebars": "^4.0.5",
-    "hbsfy": "^2.7.0",
-    "jison": "^0.4.17",
-    "lex": "^1.7.9",
     "shelljs": "^0.7.0",
     "through2": "^2.0.1",
-    "tsify": "^1.0.7",
-    "typescript": "^1.8.10",
     "yargs": "^4.6.0"
   },
   "devDependencies": {
