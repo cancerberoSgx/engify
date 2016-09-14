@@ -18,6 +18,7 @@
     "yargs": "^4.6.0"
   },
   "devDependencies": {
+    "coffeeify": "^2.0.1",
     "jasmine": "^2.4.1"
   }
 }
