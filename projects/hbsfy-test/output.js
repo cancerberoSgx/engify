@@ -1,116 +1,22 @@
-if(typeof global==='undefined'){this.global=this;global=this}; 
+if(typeof global==='undefined'){this.global=this;global=this}var tool={isJJS:function(){return typeof Java==='object'},isns:function(){return typeof nlapiLoadRecord!=='undefined'},isNode:function(){return typeof console!=='undefined'},isRhino:function(){return typeof java!=='undefined'},isBrowser:function(){return false},isV7:function(){return typeof print!=='undefined'},environment:function(){var env;if(tool.isns()){env='ns'}else if(tool.isBrowser()){env='browser'}else if(tool.isV7()){env='v7'}else if(tool.isJJS()){env='jjs'}else if(tool.isRhino()){env='rhino'}else if(tool.isNode()){env='node'}return env}};engifyTool=tool;console={log:function(){var env=tool.environment();if(env==='ns'){nlapiLogExecution('DEBUG','jslog',Array.prototype.slice.call(arguments).join(', '))}else if(env==='jjs'){var System=Java.type('java.lang.System');System.out.println(Array.prototype.slice.call(arguments).join(', '))}else if(env==='rhino'){java.lang.System.out.println(Array.prototype.slice.call(arguments).join(', '))}else if(env==='node'){console.log.apply(console,arguments)}else if(env==='browser'){console.log.apply(console,arguments)}else if(env==='v7'){print.apply(this,arguments)}}};console.error=console.log; 
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-//TODO pack this better. 
-// var _ = require('underscore')
-var tool = {
-	isJJS: function()
-	{
-		return typeof(Java) ==='object';
-	}
-,	isns: function()
-	{
-		return typeof(nlapiLoadRecord)!=='undefined';
-	}
-,	isNode: function()
-	{
-		return typeof(console)!=='undefined';
-	}
-,	isRhino: function()
-	{
-		return typeof(java)!=='undefined';
-	}
-,	isBrowser: function()
-	{
-		return false//typeof(window)!=='undefined' && typeof(window.document)!=='undefined' && typeof(window.document.createElement)!=='undefined'; 
-	}
-,	isV7: function()
-	{
-		return typeof(print)!=='undefined';
-	}
-	//TODO: javascriptcore, spidermonkey
-,	environment: function()
-	{
-		var env;
-		if(tool.isns())
-		{
-			env = 'ns';
-		}
-		else if(tool.isBrowser())
-		{			
-			env = 'browser';
-		}
-		else if(tool.isV7())
-		{			
-			env = 'v7';
-		}
-		else if(tool.isJJS())	
-		{			
-			env = 'jjs';	
-		}
-		else if(tool.isRhino())
-		{
-			env = 'rhino';
-		}
-		else if(tool.isNode())
-		{			
-			env = 'node';
-		}
-		return env
-	}
-}
+(function (global){
+var template1 = require('./template1.hbs') ;
 
+// require('../../engify-base')
 
-//console
-console = {
-	log: function()
-	{
-		var env = tool.environment();
-		if(env==='ns')
-		{
-			nlapiLogExecution('DEBUG',  'jslog', Array.prototype.slice.call(arguments).join(', '));
-		}
-		else if(env==='jjs')
-		{
-			var System = Java.type('java.lang.System');
-			System.out.println(Array.prototype.slice.call(arguments).join(', '));		
-		}
-		else if(env==='rhino')
-		{
-			java.lang.System.out.println(Array.prototype.slice.call(arguments).join(', '));		
-		}
-		else if(env==='node')
-		{
-			console.log.apply(console, arguments);
-		}
-		else if(env==='browser')
-		{
-			console.log.apply(console, arguments);
-		}
-		else if(env==='v7')
-		{
-			print.apply(this, arguments)
-		}
-	}
-}
+var result = template1({name: 'seba'})
 
-console.error = console.log; 
-function _fixes()
+global.service = function(request, response)
 {
-	var env = tool.environment();
-	if (env==='v7')
-	{
-		Date.prototype.getYear = Date.prototype.getFullYear;
-	}
+	response.write(result)
 }
-_fixes();
 
+console.log(result)
 
-
-//some fixes for particular impleentation and libraries
-
-module.exports = tool;
-},{}],2:[function(require,module,exports){
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./template1.hbs":22}],2:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -1211,25 +1117,9 @@ function appendContextPath(contextPath, id) {
 module.exports = require('./dist/cjs/handlebars.runtime')['default'];
 
 },{"./dist/cjs/handlebars.runtime":2}],21:[function(require,module,exports){
-(function (global){
-var template1 = require('./template1.hbs') ;
-
-require('../../engify-base')
-
-var result = template1({name: 'seba'})
-
-global.service = function(request, response)
-{
-	response.write(result)
-}
-
-console.log(result)
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../engify-base":1,"./template1.hbs":23}],22:[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":20}],23:[function(require,module,exports){
+},{"handlebars/runtime":20}],22:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -1240,4 +1130,4 @@ module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":f
     + "</p>\n</body>\n</html>";
 },"useData":true});
 
-},{"hbsfy/runtime":22}]},{},[21]);
+},{"hbsfy/runtime":21}]},{},[1]);

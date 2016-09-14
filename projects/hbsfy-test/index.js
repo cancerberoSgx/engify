@@ -1,6 +1,6 @@
 var template1 = require('./template1.hbs') ;
 
-require('../../engify-base')
+// require('../../engify-base')
 
 var result = template1({name: 'seba'})
 

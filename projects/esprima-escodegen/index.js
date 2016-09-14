@@ -1,6 +1,6 @@
 var esprima = require('esprima') 
 var escodegen = require('escodegen');
-require('../../engify-base');
+// require('../../engify-base');
 
 function doUglify(s)
 {

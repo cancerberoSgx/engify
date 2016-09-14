@@ -1,0 +1,16 @@
+{
+  "name": "ts1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "engify": "file:///Users/sgurin/git/engify",
+    "tsify": "^1.0.7",
+    "typescript": "^1.8.10"
+  }
+}

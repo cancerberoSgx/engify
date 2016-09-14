@@ -1,5 +1,5 @@
 
-require('./js-compat')
+// require('./js-compat')
 var FooModel = require('./model/FooModel')
 var _ = require('underscore')
 function service (request, response)

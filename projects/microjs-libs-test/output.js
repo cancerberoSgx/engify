@@ -1,116 +1,6 @@
-if(typeof global==='undefined'){this.global=this;global=this}; 
+if(typeof global==='undefined'){this.global=this;global=this}var tool={isJJS:function(){return typeof Java==='object'},isns:function(){return typeof nlapiLoadRecord!=='undefined'},isNode:function(){return typeof console!=='undefined'},isRhino:function(){return typeof java!=='undefined'},isBrowser:function(){return false},isV7:function(){return typeof print!=='undefined'},environment:function(){var env;if(tool.isns()){env='ns'}else if(tool.isBrowser()){env='browser'}else if(tool.isV7()){env='v7'}else if(tool.isJJS()){env='jjs'}else if(tool.isRhino()){env='rhino'}else if(tool.isNode()){env='node'}return env}};engifyTool=tool;console={log:function(){var env=tool.environment();if(env==='ns'){nlapiLogExecution('DEBUG','jslog',Array.prototype.slice.call(arguments).join(', '))}else if(env==='jjs'){var System=Java.type('java.lang.System');System.out.println(Array.prototype.slice.call(arguments).join(', '))}else if(env==='rhino'){java.lang.System.out.println(Array.prototype.slice.call(arguments).join(', '))}else if(env==='node'){console.log.apply(console,arguments)}else if(env==='browser'){console.log.apply(console,arguments)}else if(env==='v7'){print.apply(this,arguments)}}};console.error=console.log; 
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-//TODO pack this better. 
-// var _ = require('underscore')
-var tool = {
-	isJJS: function()
-	{
-		return typeof(Java) ==='object';
-	}
-,	isns: function()
-	{
-		return typeof(nlapiLoadRecord)!=='undefined';
-	}
-,	isNode: function()
-	{
-		return typeof(console)!=='undefined';
-	}
-,	isRhino: function()
-	{
-		return typeof(java)!=='undefined';
-	}
-,	isBrowser: function()
-	{
-		return false//typeof(window)!=='undefined' && typeof(window.document)!=='undefined' && typeof(window.document.createElement)!=='undefined'; 
-	}
-,	isV7: function()
-	{
-		return typeof(print)!=='undefined';
-	}
-	//TODO: javascriptcore, spidermonkey
-,	environment: function()
-	{
-		var env;
-		if(tool.isns())
-		{
-			env = 'ns';
-		}
-		else if(tool.isBrowser())
-		{			
-			env = 'browser';
-		}
-		else if(tool.isV7())
-		{			
-			env = 'v7';
-		}
-		else if(tool.isJJS())	
-		{			
-			env = 'jjs';	
-		}
-		else if(tool.isRhino())
-		{
-			env = 'rhino';
-		}
-		else if(tool.isNode())
-		{			
-			env = 'node';
-		}
-		return env
-	}
-}
-
-
-//console
-console = {
-	log: function()
-	{
-		var env = tool.environment();
-		if(env==='ns')
-		{
-			nlapiLogExecution('DEBUG',  'jslog', Array.prototype.slice.call(arguments).join(', '));
-		}
-		else if(env==='jjs')
-		{
-			var System = Java.type('java.lang.System');
-			System.out.println(Array.prototype.slice.call(arguments).join(', '));		
-		}
-		else if(env==='rhino')
-		{
-			java.lang.System.out.println(Array.prototype.slice.call(arguments).join(', '));		
-		}
-		else if(env==='node')
-		{
-			console.log.apply(console, arguments);
-		}
-		else if(env==='browser')
-		{
-			console.log.apply(console, arguments);
-		}
-		else if(env==='v7')
-		{
-			print.apply(this, arguments)
-		}
-	}
-}
-
-console.error = console.log; 
-function _fixes()
-{
-	var env = tool.environment();
-	if (env==='v7')
-	{
-		Date.prototype.getYear = Date.prototype.getFullYear;
-	}
-}
-_fixes();
-
-
-
-//some fixes for particular impleentation and libraries
-
-module.exports = tool;
-},{}],2:[function(require,module,exports){
 (function() {
   var callbacks, expando, filters, ls, node, setLS, tokenizer, treeify;
 
@@ -521,9 +411,9 @@ module.exports = tool;
   })();
 
 }).call(this);
-},{}],3:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 var Bottle = require('bottlejs')
-require('../../engify-base')
+// require('../../engify-base')
 
 var filesize = require('filesize')
 
@@ -541,12 +431,12 @@ console.log('filesize: '+filesize(265318, {base: 10}))
 
 var expando = require('./expando')
 console.log(expando('.test{.child-test}'))
-},{"../../engify-base":1,"./expando":2,"bottlejs":4,"filesize":5}],4:[function(require,module,exports){
+},{"./expando":1,"bottlejs":3,"filesize":4}],3:[function(require,module,exports){
 (function (global){
 ;(function(undefined) {
     'use strict';
     /**
-     * BottleJS v1.3.0 - 2016-04-29
+     * BottleJS v1.4.0 - 2016-08-03
      * A powerful dependency injection micro container
      *
      * Copyright (c) 2016 Stephen Young
@@ -755,6 +645,22 @@ console.log(expando('.test{.child-test}'))
     var factory = function factory(name, Factory) {
         return provider.call(this, name, function GenericProvider() {
             this.$get = Factory;
+        });
+    };
+    
+    /**
+     * Register an instance factory inside a generic factory.
+     *
+     * @param {String} name - The name of the service
+     * @param {Function} Factory - The factory function, matches the signature required for the
+     * `factory` method
+     * @return Bottle
+     */
+    var instanceFactory = function instanceFactory(name, Factory) {
+        return factory.call(this, name, function GenericInstanceFactory(container) {
+            return {
+                instance : Factory.bind(Factory, container)
+            };
         });
     };
     
@@ -1114,6 +1020,7 @@ console.log(expando('.test{.child-test}'))
         defer : defer,
         digest : digest,
         factory : factory,
+        instanceFactory: instanceFactory,
         list : list,
         middleware : middleware,
         provider : provider,
@@ -1204,7 +1111,7 @@ console.log(expando('.test{.child-test}'))
     
 }.call(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 (function (global){
 "use strict";
 
@@ -1356,4 +1263,4 @@ console.log(expando('.test{.child-test}'))
 })(typeof window !== "undefined" ? window : global);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[3]);
+},{}]},{},[2]);
