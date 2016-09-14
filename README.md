@@ -36,6 +36,16 @@ The following are libraries that I were able to use in all implementations:
  * escodegen
  * handlebars
 
+#browserify transformations tested 
+
+In general all browserify transformations should work! :) - in my case they all worked:
+
+ * hbsify
+ * brfs
+ * tsify
+ * coffeeify
+ * browserify-livescript
+
 #Objectives
 
  * Be able to write code using npm and run it in all javascript implementations. 
