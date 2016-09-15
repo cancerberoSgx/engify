@@ -16,6 +16,7 @@
     "through2": "^2.0.1"
   },
   "devDependencies": {
-    "jasmine": "^2.4.1"
+    "jasmine": "^2.4.1",
+    "shelljs": "^0.7.4"
   }
 }
