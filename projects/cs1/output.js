@@ -46,7 +46,7 @@ cubes = (function() {
   return results;
 })();
 
-console.log(cubes);
+console.log(cubes.join('-'));
 
 
 },{}]},{},[1]);
