@@ -28,7 +28,7 @@ describe('projects', function()
 		forEachImplTest('output.js', function(output)
 		{
 			return output.indexOf('<pre>var a=\'hello\';for(var i=0;i<8;i++){console.log(a+i)}</pre>')!==-1
-		})
+		}, 'esprima-escodegen')
 
 		shell.cd('../..')
 	});

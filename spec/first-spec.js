@@ -10,10 +10,8 @@ var forEachImplTest = require('./tools.js').forEachImplTest;
 
 shell.config.silent = true
 
-
 describe('projects', function()
 {
-
 	it('projects/browserify-tranform-test', function()
 	{
 		// shell.rm('-rf', './projects/browserify-transform-test/node_modules')
@@ -28,16 +26,16 @@ describe('projects', function()
 		forEachImplTest('output.js', function(output)
 		{
 			return output.indexOf('result and the greeting is : hello there!!')!==-1
-		})
+		}, 'browserify-transform-test')
 
 		shell.cd('../..')
 	});
 
 	it('projects/hbsfy-test', function()
 	{
-		// shell.rm('-rf', './projects/hbsfy-test/node_modules')
+		shell.rm('-rf', './projects/hbsfy-test/node_modules')
 		shell.cd('./projects/hbsfy-test')
-		// expect(shell.exec('npm install hbsfy ../..').code).toBe(0)
+		expect(shell.exec('npm install').code).toBe(0)
 
 		var p = shell.exec('browserify -t engify -t hbsfy index.js')
 		shell.rm('output.js')
@@ -48,7 +46,7 @@ describe('projects', function()
 		{
 			return output.indexOf('<head><title>test</title></head>')!==-1 && 
 				output.indexOf('<p>Hello seba</p>')!==-1
-		});
+		}, 'hbsfy-test');
 
 		shell.cd('../..')
 	});

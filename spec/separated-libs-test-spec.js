@@ -8,8 +8,8 @@ var shell = require('shelljs')
 
 var forEachImplTest = require('./tools.js').forEachImplTest; 
 
-shell.config.silent = true
 
+shell.config.silent = true
 
 describe('separated libs test', function()
 {
@@ -41,7 +41,7 @@ describe('separated libs test', function()
 		forEachImplTest('all.js', function(output)
 		{
 			return output.indexOf('<b>5 years ago, name: seba g</b>')!==-1
-		})
+		}, 'separated-libs-test')
 
 		// shell.rm('../lib/lib.js')
 		// shell.rm('all.js')

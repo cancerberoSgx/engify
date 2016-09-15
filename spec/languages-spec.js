@@ -15,7 +15,7 @@ describe('projects', function()
 {
 	it('projects/typescript', function()
 	{
-		// shell.rm('-rf', './projects/ls1/node_modules')
+		// shell.rm('-rf', './projects/ts1/node_modules')
 		shell.cd('./projects/ts1')
 		expect(shell.exec('npm install').code).toBe(0)
 
@@ -27,7 +27,7 @@ describe('projects', function()
 		forEachImplTest('output.js', function(output)
 		{
 			return output.indexOf('Hellooo, Jane User')!==-1
-		})
+		}, 'typescript')
 
 		shell.cd('../..')
 	});
@@ -47,7 +47,7 @@ describe('projects', function()
 		{
 			return output.indexOf('[{"id":1,"name":"george"},{"id":2,"name":"mike"},{"id":3,"name":"donald"}]')!==-1 && 
 				output.indexOf('20')!==-1
-		})
+		}, 'livescript')
 
 		shell.cd('../..')
 	});
@@ -56,7 +56,7 @@ describe('projects', function()
 	{
 		// shell.rm('-rf', './projects/cs1/node_modules')
 		shell.cd('./projects/cs1')
-		// expect(shell.exec('npm install').code).toBe(0)
+		expect(shell.exec('npm install').code).toBe(0)
 
 		var p = shell.exec('browserify -t engify -t coffeeify index.coffee')
 		shell.rm('output.js')
@@ -66,7 +66,7 @@ describe('projects', function()
 		forEachImplTest('output.js', function(output)
 		{
 			return output.indexOf('1-8-27-64-125')!==-1
-		})
+		}, 'coffeeescript')
 
 		shell.cd('../..')
 	});

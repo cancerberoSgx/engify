@@ -1,13 +1,13 @@
 var shell = require('shelljs')
 
-function forEachImplTest(commandFragment, stdOutPredicate)
+function forEachImplTest(commandFragment, stdOutPredicate, label)
 {
 	// var impls = ['rhino', 'node', 'js', 'jjs', 'jsc', 'ringo']  //, 'v7' - we temporarily left it out. 
 	var impls = ['node']
 	impls.forEach(function(impl)
 	{
 		var cmd = impl + ' ' + commandFragment
-		console.log(cmd)
+		console.log((label?label:'')+': '+cmd)
 		var p = shell.exec(cmd)
 		expect(p.code).toBe(0)
 
@@ -16,7 +16,7 @@ function forEachImplTest(commandFragment, stdOutPredicate)
 		{
 			output = p.stderr+'';
 		}
-		// console.log(p.stdout)
+		console.log('result: ', stdOutPredicate(output))
 		expect(stdOutPredicate(output)||cmd+' passed').toBe(true)
 	})
 }

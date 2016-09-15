@@ -29,7 +29,7 @@ describe('projects', function()
 			return output.indexOf('Beer')!==-1 && 
 				output.indexOf('filesize: 265.32 kB')!==-1 && 
 				output.indexOf('<div class="test"><test class="child"></test></div>')!==-1
-		})
+		}, 'microjs-libs-test')
 
 		shell.cd('../..')
 	});

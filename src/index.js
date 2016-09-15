@@ -8,9 +8,8 @@ escodegen = require('escodegen');
 
 function doUglify(s)
 {
- var ast = esprima.parse(s);
- return escodegen.generate(ast, {format: escodegen.FORMAT_MINIFY}) || s;
- return s;
+    var ast = esprima.parse(s+'');
+    return escodegen.generate(ast, {format: escodegen.FORMAT_MINIFY}) || s;
 }
 
 // function doUglify(s){return s;}
