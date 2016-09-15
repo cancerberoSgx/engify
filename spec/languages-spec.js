@@ -17,7 +17,7 @@ describe('projects', function()
 	{
 		// shell.rm('-rf', './projects/ls1/node_modules')
 		shell.cd('./projects/ts1')
-		// expect(shell.exec('npm install').code).toBe(0)
+		expect(shell.exec('npm install').code).toBe(0)
 
 		var p = shell.exec('browserify -p tsify -t engify src/model1.ts')
 		shell.rm('output.js')
@@ -36,7 +36,7 @@ describe('projects', function()
 	{
 		// shell.rm('-rf', './projects/ls1/node_modules')
 		shell.cd('./projects/ls1')
-		// expect(shell.exec('npm install').code).toBe(0)
+		expect(shell.exec('npm install').code).toBe(0)
 
 		var p = shell.exec('browserify -t engify -t browserify-livescript index.ls')
 		shell.rm('output.js')
