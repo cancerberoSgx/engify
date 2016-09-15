@@ -3,17 +3,17 @@ var fs = require('fs')
 
 //do uglify
 
-// var esprima = require('esprima'), 
-// escodegen = require('escodegen');
+var esprima = require('esprima'), 
+escodegen = require('escodegen');
 
-// function doUglify(s)
-// {
-//  var ast = esprima.parse(s);
-//  return escodegen.generate(ast, {format: escodegen.FORMAT_MINIFY}) || s;
-//  return s;
-// }
+function doUglify(s)
+{
+ var ast = esprima.parse(s);
+ return escodegen.generate(ast, {format: escodegen.FORMAT_MINIFY}) || s;
+ return s;
+}
 
-function doUglify(s){return s;}
+// function doUglify(s){return s;}
 
 function getPrefix()
 {
