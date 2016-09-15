@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/cancerberoSgx/short-jsdoc.png?branch=master)](https://travis-ci.org/cancerberoSgx/short-jsdoc)
+
+
 #What's this?
 
 Browserify transformation that add minimal support for running node.js projects in multiple JavaScript implementations:
