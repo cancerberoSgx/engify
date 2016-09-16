@@ -33,7 +33,7 @@ describe('projects', function()
 
 	it('projects/hbsfy-test', function()
 	{
-		shell.rm('-rf', './projects/hbsfy-test/node_modules')
+		// shell.rm('-rf', './projects/hbsfy-test/node_modules')
 		shell.cd('./projects/hbsfy-test')
 		expect(shell.exec('npm install').code).toBe(0)
 
@@ -47,6 +47,27 @@ describe('projects', function()
 			return output.indexOf('<head><title>test</title></head>')!==-1 && 
 				output.indexOf('<p>Hello seba</p>')!==-1
 		}, 'hbsfy-test');
+
+		shell.cd('../..')
+	});
+
+	it('projects/crypto-js-test', function()
+	{
+		// shell.rm('-rf', './projects/crypto-js-test/node_modules')
+		shell.cd('./projects/crypto-js-test')
+		expect(shell.exec('npm install').code).toBe(0)
+
+		var p = shell.exec('browserify -t engify index.js')
+		shell.rm('output.js')
+		p.to('output.js')
+		expect(p.code).toBe(0)
+
+		forEachImplTest('output.js', function(output)
+		{
+
+			return output.indexOf('my message')!==-1 && 
+				output.indexOf('[{"id":1},{"id":2}]')!==-1
+		}, 'crypto-js-test');
 
 		shell.cd('../..')
 	});
