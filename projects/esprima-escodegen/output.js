@@ -3363,7 +3363,7 @@ module.exports={
         "spec": ">=1.8.0 <2.0.0",
         "type": "range"
       },
-      "/Users/sgurin/test/engify/projects/esprima-escodegen"
+      "/home/sg/git/engify/projects/esprima-escodegen"
     ]
   ],
   "_from": "escodegen@>=1.8.0 <2.0.0",
@@ -3399,7 +3399,7 @@ module.exports={
   "_shasum": "5a5b53af4693110bebb0867aa3430dd3b70a1018",
   "_shrinkwrap": null,
   "_spec": "escodegen@^1.8.0",
-  "_where": "/Users/sgurin/test/engify/projects/esprima-escodegen",
+  "_where": "/home/sg/git/engify/projects/esprima-escodegen",
   "bin": {
     "esgenerate": "./bin/esgenerate.js",
     "escodegen": "./bin/escodegen.js"

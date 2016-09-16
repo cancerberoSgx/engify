@@ -72,4 +72,24 @@ describe('projects', function()
 		shell.cd('../..')
 	});
 
+	it('projects/underscore-momentjs-esprima', function()
+	{
+		shell.rm('-rf', './projects/underscore-momentjs-esprima/node_modules')
+		shell.cd('./projects/underscore-momentjs-esprima')
+		expect(shell.exec('npm install').code).toBe(0)
+
+		var p = shell.exec('browserify -t engify index.js')
+		shell.rm('output.js')
+		p.to('output.js')
+		expect(p.code).toBe(0)
+
+		forEachImplTest('output.js', function(output)
+		{
+			//TODO we are not verifying moment js date
+			return output.indexOf('{"type":"Program","body"')!==-1
+		}, 'underscore-momentjs-esprima');
+
+		shell.cd('../..')
+	});
+
 })

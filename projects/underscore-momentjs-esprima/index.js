@@ -1,8 +1,6 @@
 var _ = require('underscore')
-,	moment = require('momentjs')
+,	moment = require('moment')
 ,	esprima = require('esprima')
-
-require('../../test-src/js-compat')
 
 var formats = ['dddd', 'MMM Do YY', 'YYYY [escaped] YYYY', 'MMMM Do YYYY, h:mm:ss a']
 

@@ -10,7 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "esprima": "^2.7.2",
-    "momentjs": "^1.1.6",
+    "moment": "^2.15.0",
     "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "engify": "file:///home/sg/git/engify"
   }
 }
