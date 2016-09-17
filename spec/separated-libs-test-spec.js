@@ -43,9 +43,6 @@ describe('separated libs test', function()
 			return output.indexOf('<b>5 years ago, name: seba g</b>')!==-1
 		}, 'separated-libs-test')
 
-		// shell.rm('../lib/lib.js')
-		// shell.rm('all.js')
-		// shell.rm('client.js')
 		shell.cd('../../..')
 	});
 

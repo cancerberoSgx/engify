@@ -74,7 +74,7 @@ describe('projects', function()
 
 	it('projects/underscore-momentjs-esprima', function()
 	{
-		shell.rm('-rf', './projects/underscore-momentjs-esprima/node_modules')
+		// shell.rm('-rf', './projects/underscore-momentjs-esprima/node_modules')
 		shell.cd('./projects/underscore-momentjs-esprima')
 		expect(shell.exec('npm install').code).toBe(0)
 
