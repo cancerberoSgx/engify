@@ -12,85 +12,85 @@ shell.config.silent = true
 
 describe('projects', function()
 {
-	// it('projects/browserify-tranform-test', function()
-	// {
-	// 	// shell.rm('-rf', './projects/browserify-transform-test/node_modules')
-	// 	shell.cd('./projects/browserify-transform-test')
-	// 	expect(shell.exec('npm install').code).toBe(0)
+	it('projects/browserify-tranform-test', function()
+	{
+		// shell.rm('-rf', './projects/browserify-transform-test/node_modules')
+		shell.cd('./projects/browserify-transform-test')
+		expect(shell.exec('npm install').code).toBe(0)
 
-	// 	var p = shell.exec('browserify -t engify src/index.js')
-	// 	shell.rm('output.js')
-	// 	p.to('output.js')
-	// 	expect(p.code).toBe(0)
+		var p = shell.exec('browserify -t engify src/index.js')
+		shell.rm('output.js')
+		p.to('output.js')
+		expect(p.code).toBe(0)
 
-	// 	forEachImplTest('output.js', function(output)
-	// 	{
-	// 		return output.indexOf('result and the greeting is : hello there!!')!==-1
-	// 	}, 'browserify-transform-test')
+		forEachImplTest('output.js', function(output)
+		{
+			return output.indexOf('result and the greeting is : hello there!!')!==-1
+		}, 'browserify-transform-test')
 
-	// 	shell.cd('../..')
-	// });
+		shell.cd('../..')
+	});
 
-	// it('projects/hbsfy-test', function()
-	// {
-	// 	// shell.rm('-rf', './projects/hbsfy-test/node_modules')
-	// 	shell.cd('./projects/hbsfy-test')
-	// 	expect(shell.exec('npm install').code).toBe(0)
+	it('projects/hbsfy-test', function()
+	{
+		// shell.rm('-rf', './projects/hbsfy-test/node_modules')
+		shell.cd('./projects/hbsfy-test')
+		expect(shell.exec('npm install').code).toBe(0)
 
-	// 	var p = shell.exec('browserify -t engify -t hbsfy index.js')
-	// 	shell.rm('output.js')
-	// 	p.to('output.js')
-	// 	expect(p.code).toBe(0)
+		var p = shell.exec('browserify -t engify -t hbsfy index.js')
+		shell.rm('output.js')
+		p.to('output.js')
+		expect(p.code).toBe(0)
 
-	// 	forEachImplTest('output.js', function(output)
-	// 	{
-	// 		return output.indexOf('<head><title>test</title></head>')!==-1 &&
-	// 			output.indexOf('<p>Hello seba</p>')!==-1
-	// 	}, 'hbsfy-test');
+		forEachImplTest('output.js', function(output)
+		{
+			return output.indexOf('<head><title>test</title></head>')!==-1 &&
+				output.indexOf('<p>Hello seba</p>')!==-1
+		}, 'hbsfy-test');
 
-	// 	shell.cd('../..')
-	// });
+		shell.cd('../..')
+	});
 
-	// it('projects/crypto-js-test', function()
-	// {
-	// 	// shell.rm('-rf', './projects/crypto-js-test/node_modules')
-	// 	shell.cd('./projects/crypto-js-test')
-	// 	expect(shell.exec('npm install').code).toBe(0)
+	it('projects/crypto-js-test', function()
+	{
+		// shell.rm('-rf', './projects/crypto-js-test/node_modules')
+		shell.cd('./projects/crypto-js-test')
+		expect(shell.exec('npm install').code).toBe(0)
 
-	// 	var p = shell.exec('browserify -t engify index.js')
-	// 	shell.rm('output.js')
-	// 	p.to('output.js')
-	// 	expect(p.code).toBe(0)
+		var p = shell.exec('browserify -t engify index.js')
+		shell.rm('output.js')
+		p.to('output.js')
+		expect(p.code).toBe(0)
 
-	// 	forEachImplTest('output.js', function(output)
-	// 	{
+		forEachImplTest('output.js', function(output)
+		{
 
-	// 		return output.indexOf('my message')!==-1 &&
-	// 			output.indexOf('[{"id":1},{"id":2}]')!==-1
-	// 	}, 'crypto-js-test');
+			return output.indexOf('my message')!==-1 &&
+				output.indexOf('[{"id":1},{"id":2}]')!==-1
+		}, 'crypto-js-test');
 
-	// 	shell.cd('../..')
-	// });
+		shell.cd('../..')
+	});
 
-	// it('projects/underscore-momentjs-esprima', function()
-	// {
-	// 	// shell.rm('-rf', './projects/underscore-momentjs-esprima/node_modules')
-	// 	shell.cd('./projects/underscore-momentjs-esprima')
-	// 	expect(shell.exec('npm install').code).toBe(0)
+	it('projects/underscore-momentjs-esprima', function()
+	{
+		// shell.rm('-rf', './projects/underscore-momentjs-esprima/node_modules')
+		shell.cd('./projects/underscore-momentjs-esprima')
+		expect(shell.exec('npm install').code).toBe(0)
 
-	// 	var p = shell.exec('browserify -t engify index.js')
-	// 	shell.rm('output.js')
-	// 	p.to('output.js')
-	// 	expect(p.code).toBe(0)
+		var p = shell.exec('browserify -t engify index.js')
+		shell.rm('output.js')
+		p.to('output.js')
+		expect(p.code).toBe(0)
 
-	// 	forEachImplTest('output.js', function(output)
-	// 	{
-	// 		//TODO we are not verifying moment js date
-	// 		return output.indexOf('{"type":"Program","body"')!==-1
-	// 	}, 'underscore-momentjs-esprima');
+		forEachImplTest('output.js', function(output)
+		{
+			//TODO we are not verifying moment js date
+			return output.indexOf('{"type":"Program","body"')!==-1
+		}, 'underscore-momentjs-esprima');
 
-	// 	shell.cd('../..')
-	// });
+		shell.cd('../..')
+	});
 
 	it('projects/babel-browserify', function()
 	{
