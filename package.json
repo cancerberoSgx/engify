@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "browserify": "^13.0.0",
-    "convert-source-map": "^1.2.0",
     "escodegen": "^1.8.1",
     "esprima": "^3.0.0",
     "through2": "^2.0.1"

@@ -22,8 +22,7 @@ function getPrefix()
 
 
 // This is a browserify transformation. Based on https://github.com/jnordberg/coffeeify/blob/master/index.js
-var convert = require('convert-source-map');
-var path = require('path');
+// var convert = require('convert-source-map');
 var through = require('through2');
 
 var onlyFirst = false; 
