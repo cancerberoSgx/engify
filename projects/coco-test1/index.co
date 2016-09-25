@@ -1,0 +1,8 @@
+console.log 123
+
+pythagoras =
+	for a from 2 to 1 by -1
+		for b from a til 9
+			h = (a*a + b*b) ** 0.5
+			[a, b, h] unless h % 1
+			console.log a, b, h
