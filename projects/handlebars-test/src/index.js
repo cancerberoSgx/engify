@@ -25,7 +25,8 @@ var data = {
 			{},
 			{}
 		]
-	}
+	},
+	"aPartialName": "partial1"
 };
 var result = template(data);
 console.log(result)

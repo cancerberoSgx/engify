@@ -7034,11 +7034,11 @@ var Handlebars = require('handlebars')
 
 //register a partial
 
-Handlebars.registerPartial('partial1', "<p>HelloWorldFrom partial {{name}} :) </p>")
-Handlebars.registerPartial('kids', "<ul>{{#kids}}<li>{{name}} is {{age}}</li>{{/kids}}</ul>")
+Handlebars.registerPartial('partial1', "<p>HelloWorldFrom partial {{name}} :) </p>\n")
+Handlebars.registerPartial('kids', "<ul>{{#kids}}<li>{{name}} is {{age}}</li>{{/kids}}</ul>\n")
 
 
-var source = "<p>Hello, my name is {{name}}. I am from {{hometown}}. I have {{kids.length}} kids:</p> \n{{> kids }}\n{{> partial1 }}"
+var source = "<p>Hello, my name is {{name}}. I am from {{hometown}}. I have {{kids.length}} kids:</p> \n{{> kids }}\n{{> partial1 }}\n{{> (lookup . 'aPartialName') }}\n"
 // "<p>Hello, my name is {{name}}. I am from {{hometown}}. I have " +
 //              "{{kids.length}} kids:</p>" +
 //              "<ul>{{#kids}}<li>{{name}} is {{age}}</li>{{/kids}}</ul>"+
@@ -7056,7 +7056,8 @@ var data = {
 			{},
 			{}
 		]
-	}
+	},
+	"aPartialName": "partial1"
 };
 var result = template(data);
 console.log(result)
