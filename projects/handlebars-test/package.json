@@ -12,6 +12,7 @@
     "handlebars": "^3.0.3"
   },
   "devDependencies": {
-    "brfs": "^1.4.3"
+    "brfs": "^1.4.3",
+    "engify": "../.."
   }
 }

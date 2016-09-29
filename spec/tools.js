@@ -3,7 +3,7 @@ var shell = require('shelljs')
 function forEachImplTest(commandFragment, stdOutPredicate, label)
 {
 	// var impls = ['rhino', 'node', 'js', 'jjs', 'jsc', 'ringo']  //, 'v7' - we temporarily left it out. 
-	var impls = ['node']
+	var impls = ['node'] // for travis CI
 	impls.forEach(function(impl)
 	{
 		var cmd = impl + ' ' + commandFragment
