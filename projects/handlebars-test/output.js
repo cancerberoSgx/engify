@@ -7035,9 +7035,10 @@ var Handlebars = require('handlebars')
 //register a partial
 
 Handlebars.registerPartial('partial1', "<p>HelloWorldFrom partial {{name}} :) </p>")
+Handlebars.registerPartial('kids', "<ul>{{#kids}}<li>{{name}} is {{age}}</li>{{/kids}}</ul>")
 
 
-var source = "<p>Hello, my name is {{name}}. I am from {{hometown}}. I have {{kids.length}} kids:</p> \n<ul>{{#kids}}<li>{{name}} is {{age}}</li>{{/kids}}</ul>\n{{> partial1 }}"
+var source = "<p>Hello, my name is {{name}}. I am from {{hometown}}. I have {{kids.length}} kids:</p> \n{{> kids }}\n{{> partial1 }}"
 // "<p>Hello, my name is {{name}}. I am from {{hometown}}. I have " +
 //              "{{kids.length}} kids:</p>" +
 //              "<ul>{{#kids}}<li>{{name}} is {{age}}</li>{{/kids}}</ul>"+

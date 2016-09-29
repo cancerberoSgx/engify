@@ -4,6 +4,7 @@ var Handlebars = require('handlebars')
 //register a partial
 var fs = require('fs')
 Handlebars.registerPartial('partial1', fs.readFileSync('./src/templates/partial1.tpl', 'utf8'))
+Handlebars.registerPartial('kids', fs.readFileSync('./src/templates/kids.tpl', 'utf8'))
 
 
 var source = fs.readFileSync('./src/templates/main.tpl', 'utf8')
