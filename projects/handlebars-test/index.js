@@ -1,5 +1,4 @@
 var Handlebars = require('handlebars')
-require('../../test-src/js-compat')
 
 var source = "<p>Hello, my name is {{name}}. I am from {{hometown}}. I have " +
              "{{kids.length}} kids:</p>" +

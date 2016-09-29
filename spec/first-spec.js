@@ -12,6 +12,27 @@ shell.config.silent = true
 
 describe('projects', function()
 {
+
+	it('projects/handlebars-test', function()
+	{
+		// shell.rm('-rf', './projects/browserify-transform-test/node_modules')
+		shell.cd('./projects/handlebars-test')
+		expect(shell.exec('npm install').code).toBe(0)
+
+		var p = shell.exec('browserify -t engify index.js')
+		shell.rm('output.js')
+		p.to('output.js')
+		expect(p.code).toBe(0)
+
+		forEachImplTest('output.js', function(output)
+		{
+			return output.indexOf('<p>Hello, my name is Alan. I am from Somewhere, TX. I have 2 kids:</p><ul><li>Jimmy is 12</li><li>Sally is 4</li></ul>')!==-1
+		}, 'handlebars-test')
+
+		shell.cd('../..')
+	});
+
+
 	it('projects/browserify-tranform-test', function()
 	{
 		// shell.rm('-rf', './projects/browserify-transform-test/node_modules')
@@ -117,4 +138,6 @@ describe('projects', function()
 		}, 'projects/babel-browserify')
 		shell.cd('../..')
 	});
+
+
 })
