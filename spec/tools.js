@@ -16,7 +16,7 @@ function forEachImplTest(commandFragment, stdOutPredicate, label)
 		{
 			output = p.stderr+'';
 		}
-		console.log(output)
+		// console.log(output)
 		console.log('result: ', stdOutPredicate(output))
 		expect(stdOutPredicate(output)||cmd+' passed').toBe(true)
 	})
