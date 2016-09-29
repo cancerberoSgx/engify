@@ -20,9 +20,10 @@ describe('projects', function()
 
 	it('projects/handlebars-test', function()
 	{
-		// shell.rm('-rf', './projects/browserify-transform-test/node_modules')
 		shell.cd('./projects/handlebars-test')
+shell.config.silent = false
 		expect(shell.exec('npm install').code).toBe(0)
+shell.config.silent = true
 
 		var p = shell.exec('browserify -t engify -t brfs src/index.js')
 		shell.rm('output.js')
@@ -43,7 +44,6 @@ describe('projects', function()
 
 	// it('projects/browserify-tranform-test', function()
 	// {
-	// 	// shell.rm('-rf', './projects/browserify-transform-test/node_modules')
 	// 	shell.cd('./projects/browserify-transform-test')
 	// 	expect(shell.exec('npm install').code).toBe(0)
 
