@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "handlebars": "^3.0.3"
+  },
+  "devDependencies": {
+    "brfs": "^1.4.3"
   }
 }

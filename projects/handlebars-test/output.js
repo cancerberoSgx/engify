@@ -415,9 +415,15 @@ process.umask = function() { return 0; };
 },{}],4:[function(require,module,exports){
 var Handlebars = require('handlebars')
 
+//register a partial
+
+Handlebars.registerPartial('partial1', "<p>HelloWorldFrom partial {{name}} :) </p>")
+
+
 var source = "<p>Hello, my name is {{name}}. I am from {{hometown}}. I have " +
              "{{kids.length}} kids:</p>" +
-             "<ul>{{#kids}}<li>{{name}} is {{age}}</li>{{/kids}}</ul>";
+             "<ul>{{#kids}}<li>{{name}} is {{age}}</li>{{/kids}}</ul>"+
+             "\n{{> partial1 }}";
 var template = Handlebars.compile(source);
 
 var data = { "name": "Alan", "hometown": "Somewhere, TX",
