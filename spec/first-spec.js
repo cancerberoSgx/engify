@@ -19,15 +19,19 @@ describe('projects', function()
 		shell.cd('./projects/handlebars-test')
 		expect(shell.exec('npm install').code).toBe(0)
 
-		var p = shell.exec('browserify -t engify -t brfs index.js')
+		var p = shell.exec('browserify -t engify -t brfs src/index.js')
 		shell.rm('output.js')
 		p.to('output.js')
 		expect(p.code).toBe(0)
 
 		forEachImplTest('output.js', function(output)
 		{
-			return output.indexOf('<p>Hello, my name is Alan. I am from Somewhere, TX. I have 2 kids:</p><ul><li>Jimmy is 12</li><li>Sally is 4</li></ul>')!==-1
-			// && output.indexOf('<p>HelloWorldFrom partial Alan :) </p>')!==-1
+			 
+
+
+	return output.indexOf('<p>Hello, my name is Alan. I am from Somewhere, TX. I have 2 kids:</p>')!==-1
+		&& output.indexOf('<ul><li>Jimmy is 12</li><li>Sally is 4</li></ul>')
+		&& output.indexOf('<p>HelloWorldFrom partial Alan :) </p>')!==-1
 		}, 'handlebars-test')
 
 		shell.cd('../..')
