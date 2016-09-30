@@ -5,7 +5,10 @@ if(typeof(global)==='undefined')
 	this.global = this; 
 	global = this;
 }
-
+if(typeof(window)==='undefined')
+{
+	window = this; 
+}
 var tool = {
 	isJJS: function()
 	{
