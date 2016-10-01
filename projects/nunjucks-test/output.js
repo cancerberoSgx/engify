@@ -6,7 +6,11 @@ var nunjucks= require('nunjucks')
 nunjucks.configure({ autoescape: true });
 var out = nunjucks.renderString('Hello {{ username }}', { username: 'James' });
 console.log(out)
-},{"nunjucks":2}],2:[function(require,module,exports){
+
+var child = require('./templates/child.nunj')
+var out2 = child.render({})
+console.log(out2)
+},{"./templates/child.nunj":4,"nunjucks":2}],2:[function(require,module,exports){
 /*! Browser bundle of nunjucks 2.5.2  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -6367,4 +6371,169 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
-},{}]},{},[1]);
+},{}],3:[function(require,module,exports){
+module.exports = function ( nunjucks, env, obj, __require ) {
+
+	var oldRoot = obj.root;
+
+	obj.root = function( env, context, frame, runtime, cb ) {
+		var oldGetTemplate = env.getTemplate;
+		env.getTemplate = function( name, ec, parentName, cb ) {
+			if( typeof ec === "function" ) {
+				cb = ec;
+				ec = false;
+			}
+
+			var _require = function(name) {
+				try {
+					return __require(name);
+				} catch (e) {
+					if ( frame.get( "_require" ) ) return frame.get( "_require" )( name );
+				}
+			};
+			var tmpl = _require( name );
+			frame.set( "_require", _require );
+			if( ec ) tmpl.compile();
+			cb( null, tmpl );
+		};
+
+		oldRoot( env, context, frame, runtime, function( err, res ) {
+			env.getTemplate = oldGetTemplate;
+			cb( err, res );
+		} );
+	};
+
+	var src = {
+		obj: obj,
+		type: "code"
+	};
+
+	return new nunjucks.Template( src, env );
+
+};
+
+},{}],4:[function(require,module,exports){
+var nunjucks = require( "nunjucks" );
+var env = nunjucks.env || new nunjucks.Environment();
+require( "./parent.nunj" );
+var obj = (function () {function root(env, context, frame, runtime, cb) {
+var lineno = null;
+var colno = null;
+var output = "";
+try {
+env.getTemplate("./parent.nunj", true, undefined, function(t_2,parentTemplate) {
+if(t_2) { cb(t_2); return; }
+for(var t_1 in parentTemplate.blocks) {
+context.addBlock(t_1, parentTemplate.blocks[t_1]);
+}
+output += "\n\n";
+output += "\n\n";
+parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
+});
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+function b_left(env, context, frame, runtime, cb) {
+var lineno = null;
+var colno = null;
+var output = "";
+try {
+output += "\nThis is the left side!\n";
+cb(null, output);
+;
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+function b_right(env, context, frame, runtime, cb) {
+var lineno = null;
+var colno = null;
+var output = "";
+try {
+output += "\nThis is the right side!\n";
+cb(null, output);
+;
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+return {
+b_left: b_left,
+b_right: b_right,
+root: root
+};
+})();
+module.exports = require( "nunjucksify/runtime-shim" )(nunjucks, env, obj, require);
+
+},{"./parent.nunj":5,"nunjucks":2,"nunjucksify/runtime-shim":3}],5:[function(require,module,exports){
+var nunjucks = require( "nunjucks" );
+var env = nunjucks.env || new nunjucks.Environment();
+var obj = (function () {function root(env, context, frame, runtime, cb) {
+var lineno = null;
+var colno = null;
+var output = "";
+try {
+context.getBlock("header")(env, context, frame, runtime, function(t_2,t_1) {
+if(t_2) { cb(t_2); return; }
+output += t_1;
+output += "\n\n<section class=\"left\">\n  ";
+context.getBlock("left")(env, context, frame, runtime, function(t_4,t_3) {
+if(t_4) { cb(t_4); return; }
+output += t_3;
+output += "\n</section>\n\n<section class=\"right\">\n  ";
+context.getBlock("right")(env, context, frame, runtime, function(t_6,t_5) {
+if(t_6) { cb(t_6); return; }
+output += t_5;
+output += "\n</section>";
+cb(null, output);
+})})});
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+function b_header(env, context, frame, runtime, cb) {
+var lineno = null;
+var colno = null;
+var output = "";
+try {
+output += "\nThis is the default content\n";
+cb(null, output);
+;
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+function b_left(env, context, frame, runtime, cb) {
+var lineno = null;
+var colno = null;
+var output = "";
+try {
+cb(null, output);
+;
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+function b_right(env, context, frame, runtime, cb) {
+var lineno = null;
+var colno = null;
+var output = "";
+try {
+output += "\n  This is more content\n  ";
+cb(null, output);
+;
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+return {
+b_header: b_header,
+b_left: b_left,
+b_right: b_right,
+root: root
+};
+})();
+module.exports = require( "nunjucksify/runtime-shim" )(nunjucks, env, obj, require);
+
+},{"nunjucks":2,"nunjucksify/runtime-shim":3}]},{},[1]);

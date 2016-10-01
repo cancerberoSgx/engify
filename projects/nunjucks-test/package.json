@@ -12,6 +12,7 @@
     "nunjucks": "^2.5.2"
   },
   "devDependencies": {
-    "engify": "file:///home/sg/git/engify"
+    "engify": "../..",
+    "nunjucksify": "^0.2.3"
   }
 }
