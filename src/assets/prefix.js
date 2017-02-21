@@ -1,4 +1,14 @@
-//this file is included into distribution and defines the global object
+/*
+
+this file is included into distribution and defines:
+
+ * the global object: 'global' and '_GLOBAL'
+ * console.log - very basic: one single param
+
+*/
+
+this._GLOBAL = this; 
+_GLOBAL = this; 
 
 if(typeof(global)==='undefined')
 {
