@@ -14,19 +14,32 @@ Browserify transformation that add minimal support for running node.js projects 
  * ringojs (http://ringojs.org/)
  * [v7](https://github.com/cesanta/v7) 
 
-Particularly it adds support for: 
+Particularly it adds support for non standard:
+
  * console.log
  * global object
 
 *Right now is just an idea and experiments*
 
-The idea is to see to what point one is able to write 'pure' JavaScript and  verify some kind of JavaScript-engine-implementation isolation by running our source code (unit test) in different implementations.
+The objective is alsbeing able and test other javascript implementations other than just node and the browser. Let's see how well we can "program once" run everywhere in JavaScript works...
+
+
+#Examples
+
+Ultimately this project contains lots of example projects that will compile into a .js file that run on all above implementations. 
+
+They not only uses different npm libraries but also browserify tools and languages like es-6 babel, typescript, etc. 
+
 
 #Usage
 
+Assuming you have a node.js working project: 
+
+    npm install engify
     browserify -t engify index.js -o output.js
     rhino output.js
     jsc output.js
+
 
 #Libraries tested
 
