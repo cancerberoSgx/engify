@@ -1,6 +1,6 @@
 {
   "name": "engify",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "tools for running the js in several engines - based on commons.js - browserify",
   "main": "./src/index.js",
   "scripts": {
