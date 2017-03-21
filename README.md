@@ -3,7 +3,7 @@
 [![devDependency Status](https://david-dm.org/cancerberoSgx/engify/dev-status.svg)](https://david-dm.org/cancerberoSgx/engify#info=devDependencies)
 
 
-#What's this?
+##What's this?
 
 Browserify transformation that add minimal support for running node.js projects in multiple JavaScript implementations:
 
@@ -26,14 +26,14 @@ Particularly it adds support for non standard:
 The objective is alsbeing able and test other javascript implementations other than just node and the browser. Let's see how well we can "program once" run everywhere in JavaScript works...
 
 
-#Examples
+##Examples
 
 Ultimately this project contains lots of example projects that will compile into a .js file that run on all above implementations. 
 
 They not only uses different npm libraries but also browserify tools and languages like es-6 babel, typescript, etc. 
 
 
-#Usage
+##Usage
 
 Assuming you have a node.js working project: 
 
@@ -43,7 +43,7 @@ Assuming you have a node.js working project:
     jsc output.js
 
 
-#Libraries tested
+##Libraries tested
 
 The following are libraries that I were able to use in all implementations: 
 
@@ -54,7 +54,7 @@ The following are libraries that I were able to use in all implementations:
  * escodegen
  * handlebars
 
-#browserify transformations tested 
+##browserify transformations tested 
 
 In general all browserify transformations should work! :) - in my case they all worked:
 
@@ -64,7 +64,7 @@ In general all browserify transformations should work! :) - in my case they all 
  * coffeeify
  * browserify-livescript
 
-#Objectives
+##Objectives
 
  * Be able to write code using npm and run it in all javascript implementations. 
  * support some very basic apis in all the impls, like console.log and the global object.
@@ -72,7 +72,7 @@ In general all browserify transformations should work! :) - in my case they all 
 
 
 
-#Interesting commands
+##Interesting commands
 
     #run tests - located at spec/ folder
     npm test
@@ -108,7 +108,7 @@ In general all browserify transformations should work! :) - in my case they all 
 
 
 
-#Release Tests
+##Release Tests
 
 On any commit we should make the following commands work: 
 
@@ -123,7 +123,7 @@ On any commit we should make the following commands work:
 
 This last command will build givven test-src/index.js into static/ folder and then run it with all supported engines in the command line. 
 
-#TODO /Misc
+##TODO /Misc
 
  * support browser!
  * try windows native javascript engines (http://superuser.com/questions/488763/how-to-run-js-file-from-a-command-line-on-windows)
